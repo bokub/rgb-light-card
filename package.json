@@ -1,0 +1,34 @@
+{
+    "name": "rgb-light-card",
+    "description": "A Lovelace custom card for RGB lights",
+    "version": "1.0.0",
+    "author": "Boris K",
+    "bugs": "https://github.com/bokub/rgb-light-card/issues",
+    "devDependencies": {
+        "prettier": "^1.18.2",
+        "serve": "^11.2.0"
+    },
+    "homepage": "https://github.com/bokub/rgb-light-card",
+    "keywords": [
+        "automation",
+        "custom-cards",
+        "hass",
+        "home-assistant",
+        "homeassistant",
+        "light",
+        "lovelace",
+        "rgb"
+    ],
+    "license": "MIT",
+    "main": "card.js",
+    "prettier": {
+        "singleQuote": true,
+        "tabWidth": 4,
+        "printWidth": 120
+    },
+    "repository": "bokub/rgb-light-card",
+    "scripts": {
+        "dev": "serve .",
+        "lint": "prettier --write card.js package.json"
+    }
+}
