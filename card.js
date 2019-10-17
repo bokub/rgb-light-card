@@ -3,8 +3,8 @@ class RGBLightCard extends HTMLElement {
         this._hass = hass;
         if (!this.content) {
             this.init();
+            this.update();
         }
-        this.update();
     }
 
     init() {
@@ -22,7 +22,7 @@ class RGBLightCard extends HTMLElement {
         for (const color of this.config.colors) {
             const element = document.createElement('div');
             element.className = 'color-circle';
-            element.style = `background-color:${RGBLightCard.getColorString(color)}`;
+            element.style = `background:${RGBLightCard.getColorString(color)}`;
             element.addEventListener('click', () => this.applyColor(color));
             this.content.appendChild(element);
         }
@@ -62,10 +62,14 @@ class RGBLightCard extends HTMLElement {
             throw new Error('You need to define an array of colors');
         }
         this.config = config;
+
+        if (this.content) {
+            this.update();
+        }
     }
 
     applyColor(color) {
-        this._hass.callService('light', 'turn_on', { ...color, entity_id: this.config.entity });
+        this._hass.callService('light', 'turn_on', { ...color, icon_color: undefined, entity_id: this.config.entity });
     }
 
     static getColorString(color) {
