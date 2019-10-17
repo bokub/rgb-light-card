@@ -1,4 +1,4 @@
-# rgb-light-card
+# RGB Light Card
 A Lovelace custom card for RGB lights
 
 
@@ -12,9 +12,9 @@ Click on the three dots menu (top-right) and click on _Configure UI_.
 
 Click in the three dots menu again and click on _Raw config editor_.
 
-#### 2. Add the rbg-light-card to the resources
+#### 2. Add the `rgb-light-card` to the resources
 
-Add the following resource on top of the file :
+Add the following resource to your configuration (typically at the top)  :
 
 ```yaml
 resources:
