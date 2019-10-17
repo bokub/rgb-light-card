@@ -1,16 +1,26 @@
 # RGB Light Card
-A Lovelace custom card for RGB lights
+
+> A Lovelace custom card for RGB lights
+
+![Light](https://github.com/bokub/rgb-light-card/raw/images/light.png)
+![Dark](https://github.com/bokub/rgb-light-card/raw/images/dark.png)
 
 
 ## Installation
 
 #### 1. Open the Raw Config Editor
 
-Go to your Lovelace view
+<details><summary>(Click to expand)</summary>
+  
+1. Go to your Lovelace view
 
-Click on the three dots menu (top-right) and click on _Configure UI_.
+2. Click on the three dots menu (top-right) and click on _Configure UI_.
 
-Click in the three dots menu again and click on _Raw config editor_.
+3. Click in the three dots menu again and click on _Raw config editor_.
+
+</details>
+
+
 
 #### 2. Add the `rgb-light-card` to the resources
 
