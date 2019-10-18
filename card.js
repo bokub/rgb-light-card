@@ -76,7 +76,16 @@ class RGBLightCard extends HTMLElement {
         if (color['icon_color']) {
             return color['icon_color'];
         }
-        return `rgb(${color['rgb_color'].join(',')})`;
+        if (color['color_name']) {
+            return color['color_name'];
+        }
+        if (Array.isArray(color['rgb_color']) && color['rgb_color'].length === 3) {
+            return `rgb(${color['rgb_color'].join(',')})`;
+        }
+        if (Array.isArray(color['hs_color']) && color['hs_color'].length === 2) {
+            return `hsl(${color['hs_color'][0]},100%,${100 - color['hs_color'][1] / 2}%)`;
+        }
+        return '#ccc';
     }
 }
 
