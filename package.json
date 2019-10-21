@@ -29,6 +29,7 @@
     "repository": "bokub/rgb-light-card",
     "scripts": {
         "dev": "serve .",
-        "lint": "prettier --write card.js package.json"
+        "test": "prettier --check *.{js,json,md,yml}",
+        "lint": "prettier --write *.{js,json,md,yml}"
     }
 }
