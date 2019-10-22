@@ -61,11 +61,12 @@ entities:
 
 ### Options
 
-| Name   | Type   | Requirement  | Description                          |
-| ------ | ------ | ------------ | ------------------------------------ |
-| type   | string | **Required** | `custom:rgb-light-card`              |
-| name   | string | **Required** | Light entity to control              |
-| colors | array  | **Required** | Colors to display. See options below |
+| Name    | Type   | Requirement  | Description                                                                                                                                                                   |
+| ------- | ------ | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type    | string | **Required** | `custom:rgb-light-card`                                                                                                                                                       |
+| name    | string | **Required** | Light entity to control                                                                                                                                                       |
+| colors  | array  | **Required** | Colors to display. See options below                                                                                                                                          |
+| justify | string | **Optional** | Control how to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. The default value is `left`. Check out examples below |
 
 ### Colors options
 
@@ -73,7 +74,6 @@ entities:
 | ------------------------------------------------------------------------------------------------------- | ------ | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Any option of [`light.turn_on`](https://www.home-assistant.io/integrations/light/#service-lightturn_on) | any    | **Optional** | When you click on a color, the card will call the service [`light.turn_on`](https://www.home-assistant.io/integrations/light/#service-lightturn_on) with all the options you put here, such as `rgb_color`, `brightness`, `transition`... |
 | icon_color                                                                                              | string | **Optional** | Override icon color. Check out examples below                                                                                                                                                                                             |
-| justify                                                                                                 | string | **Optional** | Control how to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. The default value is `left`. Check out examples below                                                             |
 
 ## Examples
 
