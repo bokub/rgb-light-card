@@ -1,6 +1,8 @@
 # RGB Light Card
 
 [![Version][version-src]][version-href]
+[![HACS: Default][hacs-src]][hacs-href]
+[![LGTM][lgtm-src]][lgtm-href]
 [![code style: prettier][code-style-src]][code-style-href]
 
 > A Lovelace custom card for RGB lights
@@ -109,5 +111,10 @@ MIT © [Boris K](https://github.com/bokub)
 
 [version-src]: https://runkit.io/bokub/npm-version/branches/master/rgb-light-card?style=flat
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
+[hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
+[lgtm-src]: https://flat.badgen.net/lgtm/grade/g/bokub/rgb-light-card
+
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/prettier/prettier
+[hacs-href]: https://github.com/custom-components/hacs
+[lgtm-href]: https://lgtm.com/projects/g/bokub/rgb-light-card
