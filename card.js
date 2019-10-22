@@ -19,10 +19,11 @@ class RGBLightCard extends HTMLElement {
 
     update() {
         this.content.innerHTML = '';
+        this.content.style.justifyContent = RGBLightCard.getJustify(this.config.justify);
         for (const color of this.config.colors) {
             const element = document.createElement('div');
             element.className = 'color-circle';
-            element.style = `background:${RGBLightCard.getColorString(color)}`;
+            element.style = `background:${RGBLightCard.getCSSColor(color)}`;
             element.addEventListener('click', () => this.applyColor(color));
             this.content.appendChild(element);
         }
@@ -32,14 +33,16 @@ class RGBLightCard extends HTMLElement {
         const style = document.createElement('style');
         style.textContent = `
         .wrapper { 
-            cursor: auto
+            cursor: auto;
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: -8px;
          }
         .color-circle { 
-            display: inline-block; 
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            margin: 4px 8px 0;
+            margin: 4px 8px 8px;
             cursor: pointer;
             box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
             transition: box-shadow 0.15s ease-in-out;
@@ -72,7 +75,7 @@ class RGBLightCard extends HTMLElement {
         this._hass.callService('light', 'turn_on', { ...color, icon_color: undefined, entity_id: this.config.entity });
     }
 
-    static getColorString(color) {
+    static getCSSColor(color) {
         if (color['icon_color']) {
             return color['icon_color'];
         }
@@ -85,7 +88,19 @@ class RGBLightCard extends HTMLElement {
         if (Array.isArray(color['hs_color']) && color['hs_color'].length === 2) {
             return `hsl(${color['hs_color'][0]},100%,${100 - color['hs_color'][1] / 2}%)`;
         }
-        return '#ccc';
+        return '#7F848E';
+    }
+
+    static getJustify(option) {
+        return (
+            {
+                left: 'flex-start',
+                right: 'flex-end',
+                center: 'center',
+                between: 'space-between',
+                around: 'space-around'
+            }[option] || 'flex-start'
+        );
     }
 }
 
