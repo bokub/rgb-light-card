@@ -9,7 +9,7 @@ class RGBLightCard extends HTMLElement {
 
     init() {
         let shadow = this.attachShadow({ mode: 'open' });
-        shadow.appendChild(this.getStyle());
+        shadow.appendChild(RGBLightCard.getStaticCSS());
 
         this.content = document.createElement('div');
         this.content.className = 'wrapper';
@@ -19,7 +19,7 @@ class RGBLightCard extends HTMLElement {
 
     update() {
         this.content.innerHTML = '';
-        this.content.style.justifyContent = RGBLightCard.getJustify(this.config.justify);
+        this.content.appendChild(this.getDynamicCSS());
         for (const color of this.config.colors) {
             const element = document.createElement('div');
             element.className = 'color-circle';
@@ -29,23 +29,23 @@ class RGBLightCard extends HTMLElement {
         }
     }
 
-    getStyle() {
+    getDynamicCSS() {
+        const s = parseFloat(this.config.size) || 32;
         const style = document.createElement('style');
         style.textContent = `
-        .wrapper { 
-            cursor: auto;
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: -8px;
-         }
-        .color-circle { 
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin: 4px 8px 8px;
-            cursor: pointer;
+        .wrapper { justify-content: ${RGBLightCard.getJustify(this.config.justify)}; margin-bottom: -${s / 8}px; }
+        .color-circle {  width: ${s}px; height: ${s}px; margin: ${s / 8}px ${s / 4}px ${s / 4}px; }
+        `;
+        return style;
+    }
+
+    static getStaticCSS() {
+        const style = document.createElement('style');
+        style.textContent = `
+        .wrapper { cursor: auto; display: flex; flex-wrap: wrap; }
+        .color-circle {
+            border-radius: 50%; cursor: pointer; transition: box-shadow 0.15s ease-in-out;
             box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-            transition: box-shadow 0.15s ease-in-out;
         }
         .color-circle:hover {
             box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
