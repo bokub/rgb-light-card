@@ -12,6 +12,8 @@
 
 ## Installation
 
+You can either install this card through [HACS](https://github.com/custom-components/hacs), or follow these simple steps:
+
 #### 1. Open the Raw Config Editor
 
 <details><summary>(Click to expand)</summary>
@@ -26,7 +28,7 @@
 
 #### 2. Add the `rgb-light-card` to the resources
 
-Add the following resource to your configuration (typically at the top) :
+Add the following resource to your Lovelace configuration (typically at the top) :
 
 ```yaml
 resources:
@@ -43,6 +45,7 @@ Example configuration:
 ```yaml
 type: entities
 entities:
+    # Displays the light entity. It's optional
     - entity: light.example_light
 
     # Card configuration starts here
@@ -53,11 +56,10 @@ entities:
                 - 255
                 - 127
                 - 255
-            brightness: 100
-          - rgb_color:
-                - 0
-                - 0
-                - 0
+            brightness: 220
+          - hs_color:
+                - 60
+                - 30
             icon_color: '#fff8b0'
 ```
 
@@ -113,7 +115,6 @@ MIT © [Boris K](https://github.com/bokub)
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
 [hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
 [lgtm-src]: https://flat.badgen.net/lgtm/grade/g/bokub/rgb-light-card
-
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/prettier/prettier
 [hacs-href]: https://github.com/custom-components/hacs
