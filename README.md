@@ -40,7 +40,7 @@ resources:
 
 The RGB Light Card will auto-update automatically a few days after every new release (once your browser cache expires)
 
-However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding it with the format `@X.X.X` at the end of the URL
+However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding `@X.X.X` at the end of the URL (e.g: `- url: ...@1.2.0`)
 
 ## Configuration
 
