@@ -83,10 +83,10 @@ entities:
 
 ### Colors options
 
-| Name                                                                                                    | Type   | Requirement  | Description                                                                                                                                                                                                                               |
-| ------------------------------------------------------------------------------------------------------- | ------ | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Any option of [`light.turn_on`](https://www.home-assistant.io/integrations/light/#service-lightturn_on) | any    | **Optional** | When you click on a color, the card will call the service [`light.turn_on`](https://www.home-assistant.io/integrations/light/#service-lightturn_on) with all the options you put here, such as `rgb_color`, `brightness`, `transition`. [`Click here for the full list of options.`](https://www.home-assistant.io/integrations/light/#service-lightturn_on) |
-| icon_color                                                                                              | string | **Optional** | Override icon color. Check out examples below                                                                                                                                                                                             |
+| Name                                                       | Type   | Requirement  | Description                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------- | ------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options |
+| icon_color                                                 | string | **Optional** | Override icon color. Check out examples below                                                                                                                                                                                                  |
 
 ## Examples
 
