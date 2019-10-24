@@ -32,9 +32,13 @@ Add the following resource to your Lovelace configuration (typically at the top)
 
 ```yaml
 resources:
-    - url: https://cdn.jsdelivr.net/npm/rgb-light-card
+    - url: https://cdn.jsdelivr.net/npm/rgb-light-card@1.2.0
       type: js
 ```
+
+## Updating
+
+To update the card to the [latest version](https://github.com/bokub/rgb-light-card/releases/latest), replace the string at the end of the resource, after the `@` character.
 
 ## Configuration
 
@@ -52,15 +56,17 @@ entities:
     - type: 'custom:rgb-light-card'
       entity: light.example_light
       colors:
+          # Any option of the light.turn_on service can be used in each color
           - rgb_color:
                 - 255
                 - 127
                 - 255
             brightness: 220
+            transition: 1
           - hs_color:
                 - 60
                 - 30
-            icon_color: '#fff8b0'
+            icon_color: '#fff8b0' # Override icon color
 ```
 
 ### Options
@@ -91,7 +97,7 @@ This means your `icon_color` can be:
 -   A HTML color name: &nbsp; `icon_color: gold`
 -   A hexadecimal code: &nbsp; `icon_color: '#FBB48C'`
 -   Any other color compatible with [background-color](https://developer.mozilla.org/docs/Web/CSS/background-color): &nbsp; `icon_color: rgba(42, 204, 77, 0.5)`
--   A color gradient: &nbsp; `icon_color: 'linear-gradient(15deg, #0250c5 0%, #d43f8d 100%)'`
+-   A color gradient: &nbsp; `icon_color: 'linear-gradient(15deg, #0250c5, #d43f8d)'`
 -   Or even an image: &nbsp; `icon_color: center/120% url('https://www.home-assistant.io/images/favicon-192x192.png')`
 
 The 5 examples above will render like this:
