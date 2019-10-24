@@ -32,13 +32,15 @@ Add the following resource to your Lovelace configuration (typically at the top)
 
 ```yaml
 resources:
-    - url: https://cdn.jsdelivr.net/npm/rgb-light-card@1.2.0
+    - url: https://cdn.jsdelivr.net/npm/rgb-light-card
       type: js
 ```
 
 ## Updating
 
-To update the card to the [latest version](https://github.com/bokub/rgb-light-card/releases/latest), replace the string at the end of the resource, after the `@` character.
+The RGB Light Card will auto-update automatically a few days after every new release (once your browser cache expires)
+
+However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding it with the format `@X.X.X` at the end of the URL
 
 ## Configuration
 
