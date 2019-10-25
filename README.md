@@ -76,7 +76,7 @@ entities:
 | Name    | Type   | Requirement  | Default | Description                                                                                                                              |
 | ------- | ------ | ------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | type    | string | **Required** |         | `custom:rgb-light-card`                                                                                                                  |
-| name    | string | **Required** |         | Light entity to control                                                                                                                  |
+| entity  | string | **Required** |         | Light entity to control                                                                                                                  |
 | colors  | array  | **Required** |         | Colors to display. Check out color options below                                                                                         |
 | justify | string | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out examples below |
 | size    | number | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                         |
