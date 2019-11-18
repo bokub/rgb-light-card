@@ -55,15 +55,36 @@ class RGBLightCard extends HTMLElement {
     }
 
     setConfig(config) {
-        if (!config.entity) {
-            throw new Error('You need to define an entity');
-        }
-        if (config.entity.indexOf('light.') !== 0) {
-            throw new Error(`Entity ${config.entity} is not a light`);
-        }
+        // Colors must be a defined array
         if (!Array.isArray(config.colors)) {
             throw new Error('You need to define an array of colors');
         }
+        // If root entity is defined, it can only be a light
+        if (config.entity && config.entity.indexOf('light.') !== 0) {
+            throw new Error(`entity '${config.entity}' must be a light`);
+        }
+        // Validate each color
+        for (const c in config.colors) {
+            const color = config.colors[c];
+            const type = color.type || 'light';
+            // Check if type is valid
+            if (['light', 'script', 'scene'].indexOf(type) === -1) {
+                throw new Error(`Invalid type '${type}' for colors[${c}]`);
+            }
+            // If root entity is not defined, ensure light entity_id is defined
+            if (type === 'light' && !config.entity && !color.entity_id) {
+                throw new Error(`You need to define entity or colors[${c}].entity_id`);
+            }
+            // If scene or script, ensure entity_id is defined
+            if (type !== 'light' && !color.entity_id) {
+                throw new Error(`You need to define colors[${c}].entity_id`);
+            }
+            // Check that entity_id is valid
+            if (color.entity_id && color.entity_id.indexOf(type + '.') !== 0) {
+                throw new Error(`colors[${c}].entity_id '${color.entity_id}' must be a ${type}`);
+            }
+        }
+
         this.config = config;
 
         if (this.content) {
@@ -72,7 +93,8 @@ class RGBLightCard extends HTMLElement {
     }
 
     applyColor(color) {
-        this._hass.callService('light', 'turn_on', { ...color, icon_color: undefined, entity_id: this.config.entity });
+        const serviceData = { entity_id: this.config.entity, ...color, icon_color: undefined, type: undefined };
+        this._hass.callService(color.type || 'light', 'turn_on', serviceData);
     }
 
     static getCSSColor(color) {
