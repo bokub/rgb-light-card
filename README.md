@@ -74,20 +74,51 @@ entities:
 
 ### Options
 
-| Name    | Type   | Requirement  | Default | Description                                                                                                                              |
-| ------- | ------ | ------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| type    | string | **Required** |         | `custom:rgb-light-card`                                                                                                                  |
-| entity  | string | **Required** |         | Light entity to control                                                                                                                  |
-| colors  | array  | **Required** |         | Colors to display. Check out color options below                                                                                         |
-| justify | string | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out examples below |
-| size    | number | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                         |
+| Name      | Type   | Requirement  | Default | Description                                                                                                                                          |
+| --------- | ------ | ------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | string | **Required** |         | `custom:rgb-light-card`                                                                                                                              |
+| `entity`  | string | **Optional** |         | Light entity to control. If not set here, `entity_id` must be set in each color                                                                      |
+| `colors`  | array  | **Required** |         | Colors to display. Check out color options below                                                                                                     |
+| `justify` | string | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out [examples](#justify) below |
+| `size`    | number | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                                     |
 
 ### Colors options
 
-| Name                                                       | Type   | Requirement  | Description                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------- | ------ | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options |
-| icon_color                                                 | string | **Optional** | Override icon color. Check out examples below                                                                                                                                                                                                      |
+| Name                                                       | Type   | Requirement  | Default | Description                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------- | ------ | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** |         | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options |
+| `icon_color`                                               | string | **Optional** |         | Override icon color. Check out [examples](#icon-color) below                                                                                                                                                                                       |
+| `type`                                                     | string | **Optional** | `light` | Can be set to `light`, `script` or `scene` to change the click action. Read the [explanation](#calling-scripts-and-scenes) just below                                                                                                              |
+| `entity_id`                                                | string | **Optional** |         | Override the `entity` option for this specific color                                                                                                                                                                                               |
+
+## Calling scripts and scenes
+
+By default, clicking an icon calls the service `light.turn_on` with the defined options, but you can also call a [script](https://www.home-assistant.io/integrations/script) or a [scene](https://www.home-assistant.io/integrations/scene) instead. That's what the `type` option is made for.
+
+Scripts and scenes are good ways to set multiple lights at once, as well as other entities
+
+Example configuration:
+
+```yaml
+type: entities
+entities:
+    - type: 'custom:rgb-light-card'
+      colors:
+          # First icon calls a script
+          - type: script
+            entity_id: script.night_mode
+            icon_color: 'linear-gradient(#777777, #151515)'
+          # Second icon calls a scene
+          - type: scene
+            entity_id: scene.romantic
+            icon_color: 'linear-gradient(25deg, #ba71ff, #ff53b9)'
+```
+
+As you can see, an `entity_id` must be set for each script or scene
+
+The `icon_color` is still optional, but will be grey by default
+
+Note that you can mix lights, scripts and scenes in the same card
 
 ## Examples
 
@@ -125,7 +156,7 @@ MIT © [Boris K](https://github.com/bokub)
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
 [hits-src]: https://data.jsdelivr.com/v1/package/npm/rgb-light-card/badge
 [hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
-[lgtm-src]: https://flat.badgen.net/lgtm/grade/g/bokub/rgb-light-card
+[lgtm-src]: https://flat.badgen.net/lgtm/grade/g/bokub/rgb-light-card?label=code%20quality
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/prettier/prettier
 [hits-href]: https://www.jsdelivr.com/package/npm/rgb-light-card

@@ -1,7 +1,7 @@
 {
     "name": "rgb-light-card",
     "description": "A Lovelace custom card for RGB lights",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "devDependencies": {
@@ -33,7 +33,7 @@
     "repository": "bokub/rgb-light-card",
     "scripts": {
         "dev": "serve .",
-        "test": "prettier --check *.{js,json,md,yml,html}",
-        "lint": "prettier --write *.{js,json,md,yml,html}"
+        "lint": "prettier --write *.{js,json,md,yml,html}",
+        "test": "prettier --check *.{js,json,md,yml,html}"
     }
 }
