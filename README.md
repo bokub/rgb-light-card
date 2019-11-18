@@ -3,6 +3,7 @@
 [![Version][version-src]][version-href]
 [![HACS: Default][hacs-src]][hacs-href]
 [![LGTM][lgtm-src]][lgtm-href]
+[![Hits per month][hits-src]][hits-href]
 [![code style: prettier][code-style-src]][code-style-href]
 
 > A Lovelace custom card for RGB lights
@@ -83,10 +84,10 @@ entities:
 
 ### Colors options
 
-| Name                                                       | Type   | Requirement  | Description                                                                                                                                                                                                                                    |
-| ---------------------------------------------------------- | ------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name                                                       | Type   | Requirement  | Description                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------- | ------ | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options |
-| icon_color                                                 | string | **Optional** | Override icon color. Check out examples below                                                                                                                                                                                                  |
+| icon_color                                                 | string | **Optional** | Override icon color. Check out examples below                                                                                                                                                                                                      |
 
 ## Examples
 
@@ -122,9 +123,11 @@ MIT © [Boris K](https://github.com/bokub)
 
 [version-src]: https://runkit.io/bokub/npm-version/branches/master/rgb-light-card?style=flat
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
+[hits-src]: https://data.jsdelivr.com/v1/package/npm/rgb-light-card/badge
 [hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
 [lgtm-src]: https://flat.badgen.net/lgtm/grade/g/bokub/rgb-light-card
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/prettier/prettier
+[hits-href]: https://www.jsdelivr.com/package/npm/rgb-light-card
 [hacs-href]: https://github.com/custom-components/hacs
 [lgtm-href]: https://lgtm.com/projects/g/bokub/rgb-light-card

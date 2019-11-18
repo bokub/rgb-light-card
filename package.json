@@ -8,6 +8,10 @@
         "prettier": "^1.18.2",
         "serve": "^11.2.0"
     },
+    "files": [
+        "card.js",
+        "hacs.json"
+    ],
     "homepage": "https://github.com/bokub/rgb-light-card",
     "keywords": [
         "automation",
@@ -29,7 +33,7 @@
     "repository": "bokub/rgb-light-card",
     "scripts": {
         "dev": "serve .",
-        "test": "prettier --check *.{js,json,md,yml}",
-        "lint": "prettier --write *.{js,json,md,yml}"
+        "test": "prettier --check *.{js,json,md,yml,html}",
+        "lint": "prettier --write *.{js,json,md,yml,html}"
     }
 }
