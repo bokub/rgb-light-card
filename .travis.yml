@@ -8,3 +8,5 @@ deploy:
     api_key: $NPM_TOKEN
     on:
         tags: true
+
+after_deploy: curl https://purge.jsdelivr.net/npm/rgb-light-card
