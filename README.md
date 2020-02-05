@@ -72,6 +72,12 @@ entities:
             icon_color: '#fff8b0' # Override icon color
 ```
 
+> #### Pro tip
+>
+> You can test all the colors options in the **Developer Tools > Service** page of your Home Assistant.
+>
+> Choose the `light.turn_on` service, change the service data, and call the service to see the result
+
 ### Options
 
 | Name      | Type   | Requirement  | Default | Description                                                                                                                                          |
