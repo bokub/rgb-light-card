@@ -90,12 +90,14 @@ entities:
 
 ### Colors options
 
-| Name                                                       | Type   | Requirement  | Default | Description                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------- | ------ | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** |         | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options |
-| `icon_color`                                               | string | **Optional** |         | Override icon color. Check out [examples](#icon-color) below                                                                                                                                                                                       |
-| `type`                                                     | string | **Optional** | `light` | Can be set to `light`, `script` or `scene` to change the click action. Read the [explanation](#calling-scripts-and-scenes) just below                                                                                                              |
-| `entity_id`                                                | string | **Optional** |         | Override the `entity` option for this specific color                                                                                                                                                                                               |
+| Name                                                       | Type   | Requirement  | Default | Description                                                                                                                                                                                                                                                              |
+| ---------------------------------------------------------- | ------ | ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                       |
+| `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** |         | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options                       |
+| `icon_color`                                               | string | **Optional** |         | Override icon color. Check out [examples](#icon-color) below                                                                                                                                                                                                             |
+| `type`                                                     | string | **Optional** | `light` | Can be set to `light`, `script`, `scene` or `call-service` to change the click action. Read the [explanation](#calling-scripts-and-scenes) just below                                                                                                                    |
+| `entity_id`                                                | string | **Optional** |         | Override the `entity` option for this specific color                                                                                                                                                                                                                     |
+| `service`                                                  | string | **Optional** |         | Used with `call-service` type to specify the service to call for the click action. More information can be found on the [Home Assistant Service Calls](https://www.home-assistant.io/docs/scripts/service-calls/) page. Read [more information](#calling-services) below |
+| `service_data`                                             | array  | **Optional** |         | Used with `call-service` type to specify the data to be passed to the service. Read [more information](#calling-services) below                                                                                                                                          |
 
 ## Calling scripts and scenes
 
@@ -125,6 +127,46 @@ As you can see, an `entity_id` must be set for each script or scene
 The `icon_color` is still optional, but will be grey by default
 
 Note that you can mix lights, scripts and scenes in the same card
+
+### Calling Services
+
+This can call any service available on Home Assistant. The official [Home Assistant Service Calls](https://www.home-assistant.io/docs/scripts/service-calls/) documentation can be used for reference.
+
+> #### Pro tip
+>
+> You can view all services available the **Developer Tools > Service** page of your Home Assistant
+
+Example configuration:
+
+```yaml
+type: entities
+entities:
+    - type: 'custom:rgb-light-card'
+      colors:
+          # First icon calls a switch to toggle
+          - type: call-service
+            service: switch.toggle
+            service_data:
+              entity_id: switch.garden_lights
+            icon_color: 'linear-gradient(20deg, #06a122, #fffe8e)'
+          # Second icon calls a Phillips Hue scene
+          - type: call-service
+            service: hue.hue_activate_scene
+            service_data:
+              group_name: Kitchen
+              scene_name: Kitchen Blue
+            icon_color: 'linear-gradient(200deg, #fffe8e, #005fff)'
+          # Third icon send an Alexa TTS notification
+          - type: call-service
+            service: notify.alexa_media_office
+            service_data:
+              data:
+                type: tts
+              message: Test message
+            icon_color: 'linear-gradient(90deg, #ff0000, #ffff00)'
+```
+
+For example to call a Phillips Hue scene with `hue.hue_activate_scene`.
 
 ## Examples
 
