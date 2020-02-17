@@ -91,7 +91,7 @@ entities:
 ### Colors options
 
 | Name                                                       | Type   | Requirement  | Default | Description                                                                                                                                                                                                                                                              |
-| ---------------------------------------------------------- | ------ | ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                       |
+| ---------------------------------------------------------- | ------ | ------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** |         | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options                       |
 | `icon_color`                                               | string | **Optional** |         | Override icon color. Check out [examples](#icon-color) below                                                                                                                                                                                                             |
 | `type`                                                     | string | **Optional** | `light` | Can be set to `light`, `script`, `scene` or `call-service` to change the click action. Read the [explanation](#calling-scripts-and-scenes) just below                                                                                                                    |
@@ -147,22 +147,22 @@ entities:
           - type: call-service
             service: switch.toggle
             service_data:
-              entity_id: switch.garden_lights
+                entity_id: switch.garden_lights
             icon_color: 'linear-gradient(20deg, #06a122, #fffe8e)'
           # Second icon calls a Phillips Hue scene
           - type: call-service
             service: hue.hue_activate_scene
             service_data:
-              group_name: Kitchen
-              scene_name: Kitchen Blue
+                group_name: Kitchen
+                scene_name: Kitchen Blue
             icon_color: 'linear-gradient(200deg, #fffe8e, #005fff)'
           # Third icon send an Alexa TTS notification
           - type: call-service
             service: notify.alexa_media_office
             service_data:
-              data:
-                type: tts
-              message: Test message
+                data:
+                    type: tts
+                message: Test message
             icon_color: 'linear-gradient(90deg, #ff0000, #ffff00)'
 ```
 
