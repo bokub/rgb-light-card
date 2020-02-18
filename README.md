@@ -1,8 +1,9 @@
 # RGB Light Card
 
+[![Build Status][build-src]][build-href]
 [![Version][version-src]][version-href]
 [![HACS: Default][hacs-src]][hacs-href]
-[![LGTM][lgtm-src]][lgtm-href]
+[![Codecov][codecov-src]][codecov-href]
 [![Hits per month][hits-src]][hits-href]
 [![code style: prettier][code-style-src]][code-style-href]
 
@@ -158,13 +159,15 @@ Here are how the different values are handled:
 
 MIT © [Boris K](https://github.com/bokub)
 
+[build-src]: https://flat.badgen.net/travis/bokub/rgb-light-card
 [version-src]: https://runkit.io/bokub/npm-version/branches/master/rgb-light-card?style=flat
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
 [hits-src]: https://data.jsdelivr.com/v1/package/npm/rgb-light-card/badge
 [hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
-[lgtm-src]: https://flat.badgen.net/lgtm/grade/g/bokub/rgb-light-card?label=code%20quality
+[codecov-src]: https://flat.badgen.net/codecov/c/github/bokub/rgb-light-card
+[build-href]: https://travis-ci.org/bokub/rgb-light-card
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/prettier/prettier
 [hits-href]: https://www.jsdelivr.com/package/npm/rgb-light-card
 [hacs-href]: https://github.com/custom-components/hacs
-[lgtm-href]: https://lgtm.com/projects/g/bokub/rgb-light-card
+[codecov-href]: https://codecov.io/gh/bokub/rgb-light-card
