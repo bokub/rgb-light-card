@@ -68,7 +68,7 @@ class RGBLightCard extends HTMLElement {
             const color = config.colors[c];
             const type = color.type || 'light';
             // Check if type is valid
-            if (['light', 'script', 'scene'].indexOf(type) === -1) {
+            if (['light', 'script', 'scene', 'call-service'].indexOf(type) === -1) {
                 throw new Error(`Invalid type '${type}' for colors[${c}]`);
             }
             // If root entity is not defined, ensure light entity_id is defined
@@ -76,8 +76,16 @@ class RGBLightCard extends HTMLElement {
                 throw new Error(`You need to define entity or colors[${c}].entity_id`);
             }
             // If scene or script, ensure entity_id is defined
-            if (type !== 'light' && !color.entity_id) {
+            if (['script', 'scene'].indexOf(type) > -1 && !color.entity_id) {
                 throw new Error(`You need to define colors[${c}].entity_id`);
+            }
+            // If call-service, ensure service is defined
+            if ('type' === 'call-service' && !color.service) {
+                throw new Error(`You need to define colors[${c}].service`);
+            }
+            // Check that service is valid
+            if (color.service && color.service.indexOf('.') <= 0) {
+                throw new Error(`colors[${c}].service '${color.service}' must be a valid service domain.service`);
             }
             // Check that entity_id is valid
             if (color.entity_id && color.entity_id.indexOf(type + '.') !== 0) {
@@ -93,8 +101,13 @@ class RGBLightCard extends HTMLElement {
     }
 
     applyColor(color) {
-        const serviceData = { entity_id: this.config.entity, ...color, icon_color: undefined, type: undefined };
-        this._hass.callService(color.type || 'light', 'turn_on', serviceData);
+        if (color.type === 'call-service') {
+            const [domain, service] = color.service.split('.');
+            this._hass.callService(domain, service, color.service_data);
+        } else {
+            const serviceData =  { entity_id: this.config.entity, ...color, icon_color: undefined, type: undefined };
+            this._hass.callService(color.type || 'light', 'turn_on', serviceData);
+        }
     }
 
     static getCSSColor(color) {
