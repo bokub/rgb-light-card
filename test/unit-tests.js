@@ -1,0 +1,81 @@
+const test = require('ava');
+const version = require('../package.json').version;
+
+test('Library shows a badge with the right version', t => {
+    const searchStr = `%c RGB Light Card %c v${version} %c`;
+    t.truthy(
+        logged.find(e => e.indexOf(searchStr) > -1),
+        `The library shows a wrong version in its badge (expected: ${searchStr})`
+    );
+});
+
+test('Card has CSS style', t => {
+    const card = new RGBLightCard();
+    const css = card.content.parentNode.querySelector('style').innerHTML;
+    t.true(css.indexOf('.wrapper') > -1);
+    t.true(css.indexOf('.color-circle') > -1);
+});
+
+test('Errors are raised if config is invalid', t => {
+    const card = new RGBLightCard();
+    t.throws(() => card.setConfig({}), 'You need to define an array of colors');
+    t.throws(() => card.setConfig({ colors: {} }), 'You need to define an array of colors');
+    t.throws(() => card.setConfig({ entity: 'vacuum.robot', colors: [] }), "Entity 'vacuum.robot' must be a light");
+    t.throws(
+        () => card.setConfig({ entity: 'light.example', colors: [{ type: 'automation' }] }),
+        "Invalid type 'automation' for colors[0]"
+    );
+    t.throws(() => card.setConfig({ colors: [{}] }), 'You need to define entity or colors[0].entity_id');
+    t.throws(
+        () => card.setConfig({ entity: 'light.example', colors: [{ type: 'scene' }] }),
+        'You need to define colors[0].entity_id'
+    );
+    t.throws(
+        () => card.setConfig({ entity: 'light.example', colors: [{ type: 'scene', entity_id: 'light.example' }] }),
+        "colors[0].entity_id 'light.example' must be a scene"
+    );
+    t.notThrows(() => card.setConfig({ entity: 'light.example', colors: [{ hs_color: [0, 0] }] }));
+});
+
+test('Clicking the icons call the right function', t => {
+    const card = new RGBLightCard();
+    let called = {};
+    card.hass = {
+        callService(domain, service, payload) {
+            called = JSON.parse(JSON.stringify({ domain, service, payload }));
+        }
+    };
+    card.setConfig({
+        entity: 'light.example',
+        colors: [
+            { hs_color: [180, 50], brightness: 200 },
+            { type: 'scene', entity_id: 'scene.romantic' },
+            { type: 'script', entity_id: 'script.night_mode' }
+        ]
+    });
+    card.content.parentNode.querySelector('.color-circle:nth-child(2)').click();
+    t.deepEqual(called, {
+        domain: 'light',
+        service: 'turn_on',
+        payload: { entity_id: 'light.example', hs_color: [180, 50], brightness: 200 }
+    });
+
+    card.content.parentNode.querySelector('.color-circle:nth-child(3)').click();
+    t.deepEqual(called, { domain: 'scene', service: 'turn_on', payload: { entity_id: 'scene.romantic' } });
+
+    card.content.parentNode.querySelector('.color-circle:nth-child(4)').click();
+    t.deepEqual(called, { domain: 'script', service: 'turn_on', payload: { entity_id: 'script.night_mode' } });
+});
+
+test("Changing HASS creates the card, but doesn't updated it", t => {
+    const card = new RGBLightCard();
+    delete card.content;
+    t.falsy(card.content);
+    card.setConfig({ entity: 'light.example', colors: [] });
+    t.falsy(card.content);
+    card.hass = null;
+    t.truthy(card.content);
+    const oldContent = card.content;
+    card.hass = null;
+    t.is(oldContent, card.content);
+});

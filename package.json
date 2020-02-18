@@ -5,8 +5,13 @@
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "devDependencies": {
+        "ava": "^2.4.0",
+        "browser-env": "^3.3.0",
+        "codecov": "^3.6.5",
+        "nyc": "^15.0.0",
         "prettier": "^1.18.2",
-        "serve": "^11.2.0"
+        "serve": "^11.2.0",
+        "yamljs": "^0.3.0"
     },
     "files": [
         "card.js",
@@ -33,7 +38,15 @@
     "repository": "bokub/rgb-light-card",
     "scripts": {
         "dev": "serve .",
-        "lint": "prettier --write *.{js,json,md,yml,html}",
-        "test": "prettier --check *.{js,json,md,yml,html}"
+        "lint": "prettier --write **/*.{js,json,md,yml,html}",
+        "check-lint": "prettier --check **/*.{js,json,md,yml,html}",
+        "test": "nyc ava",
+        "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    },
+    "ava": {
+        "require": [
+            "./test/_setup.js",
+            "./card.js"
+        ]
     }
 }

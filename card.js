@@ -23,7 +23,7 @@ class RGBLightCard extends HTMLElement {
         for (const color of this.config.colors) {
             const element = document.createElement('div');
             element.className = 'color-circle';
-            element.style = `background:${RGBLightCard.getCSSColor(color)}`;
+            element.style.background = RGBLightCard.getCSSColor(color);
             element.addEventListener('click', () => this.applyColor(color));
             this.content.appendChild(element);
         }
@@ -35,7 +35,7 @@ class RGBLightCard extends HTMLElement {
         style.textContent = `
         .wrapper { justify-content: ${RGBLightCard.getJustify(this.config.justify)}; margin-bottom: -${s / 8}px; }
         .color-circle {  width: ${s}px; height: ${s}px; margin: ${s / 8}px ${s / 4}px ${s / 4}px; }
-        `;
+        `.replace(/\s\s+/g, ' ');
         return style;
     }
 
@@ -50,7 +50,7 @@ class RGBLightCard extends HTMLElement {
         .color-circle:hover {
             box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
         }
-        `;
+        `.replace(/\s\s+/g, ' ');
         return style;
     }
 
@@ -61,7 +61,7 @@ class RGBLightCard extends HTMLElement {
         }
         // If root entity is defined, it can only be a light
         if (config.entity && config.entity.indexOf('light.') !== 0) {
-            throw new Error(`entity '${config.entity}' must be a light`);
+            throw new Error(`Entity '${config.entity}' must be a light`);
         }
         // Validate each color
         for (const c in config.colors) {
