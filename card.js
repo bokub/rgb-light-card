@@ -55,6 +55,8 @@ class RGBLightCard extends HTMLElement {
     }
 
     setConfig(config) {
+        config = RGBLightCard.ensureBackwardCompatibility(config);
+
         // Colors must be a defined array
         if (!Array.isArray(config.colors)) {
             throw new Error('You need to define an array of colors');
@@ -68,28 +70,24 @@ class RGBLightCard extends HTMLElement {
             const color = config.colors[c];
             const type = color.type || 'light';
             // Check if type is valid
-            if (['light', 'script', 'scene', 'call-service'].indexOf(type) === -1) {
+            if (['light', 'call-service'].indexOf(type) === -1) {
                 throw new Error(`Invalid type '${type}' for colors[${c}]`);
             }
             // If root entity is not defined, ensure light entity_id is defined
             if (type === 'light' && !config.entity && !color.entity_id) {
                 throw new Error(`You need to define entity or colors[${c}].entity_id`);
             }
-            // If scene or script, ensure entity_id is defined
-            if (['script', 'scene'].indexOf(type) > -1 && !color.entity_id) {
-                throw new Error(`You need to define colors[${c}].entity_id`);
+            // If entity_id is defined, check that it's a valid light
+            if (type === 'light' && color.entity_id && color.entity_id.indexOf('light.') !== 0) {
+                throw new Error(`colors[${c}].entity_id '${color.entity_id}' must be a valid light entity`);
             }
             // If call-service, ensure service is defined
-            if ('type' === 'call-service' && !color.service) {
+            if (type === 'call-service' && !color.service) {
                 throw new Error(`You need to define colors[${c}].service`);
             }
             // Check that service is valid
-            if (color.service && color.service.indexOf('.') <= 0) {
-                throw new Error(`colors[${c}].service '${color.service}' must be a valid service domain.service`);
-            }
-            // Check that entity_id is valid
-            if (color.entity_id && color.entity_id.indexOf(type + '.') !== 0) {
-                throw new Error(`colors[${c}].entity_id '${color.entity_id}' must be a ${type}`);
+            if (type === 'call-service' && color.service.split('.').length !== 2) {
+                throw new Error(`colors[${c}].service '${color.service}' must be a valid service`);
             }
         }
 
@@ -103,11 +101,34 @@ class RGBLightCard extends HTMLElement {
     applyColor(color) {
         if (color.type === 'call-service') {
             const [domain, service] = color.service.split('.');
-            this._hass.callService(domain, service, color.service_data);
+            this._hass.callService(domain, service, color.service_data || {});
         } else {
-            const serviceData =  { entity_id: this.config.entity, ...color, icon_color: undefined, type: undefined };
+            const serviceData = { entity_id: this.config.entity, ...color, icon_color: undefined, type: undefined };
             this._hass.callService(color.type || 'light', 'turn_on', serviceData);
         }
+    }
+
+    // Transform a deprecated config into a more recent one
+    static ensureBackwardCompatibility(config) {
+        if (!config.colors || !Array.isArray(config.colors)) {
+            return config;
+        }
+        config.colors = config.colors.map((color, c) => {
+            if (color && ['script', 'scene'].indexOf(color.type) > -1) {
+                if (!color.entity_id) {
+                    throw new Error(`You need to define colors[${c}].entity_id`);
+                }
+                if (color.entity_id && color.entity_id.indexOf(color.type + '.') !== 0) {
+                    throw new Error(`colors[${c}].entity_id '${color.entity_id}' must be a ${color.type}`);
+                }
+                color.service = `${color.type}.turn_on`;
+                color.service_data = { entity_id: color.entity_id };
+                color.type = 'call-service';
+                color.entity_id = undefined;
+            }
+            return color;
+        });
+        return config;
     }
 
     static getCSSColor(color) {

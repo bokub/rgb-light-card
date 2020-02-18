@@ -12,7 +12,12 @@ colors:
   transition: 1
 - hs_color: [60, 30]
 - color_name: turquoise
-- {}
+- type: call-service
+  service: switch.toggle
+  service_data:
+    entity_id: switch.garden_lights
+- type: script
+  entity_id: script.night_mode
 - hs_color: [60, 30]
   icon_color: "#fff000"
 `,
@@ -21,6 +26,7 @@ colors:
             '<div class="color-circle" style="background: rgb(255, 127, 255);"></div>' +
             '<div class="color-circle" style="background: hsl(60, 100%, 85%);"></div>' +
             '<div class="color-circle" style="background: turquoise;"></div>' +
+            '<div class="color-circle" style="background: rgb(127, 132, 142);"></div>' +
             '<div class="color-circle" style="background: rgb(127, 132, 142);"></div>' +
             '<div class="color-circle" style="background: rgb(255, 240, 0);"></div>'
     },

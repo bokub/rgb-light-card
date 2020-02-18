@@ -34,6 +34,15 @@ test('Errors are raised if config is invalid', t => {
         () => card.setConfig({ entity: 'light.example', colors: [{ type: 'scene', entity_id: 'light.example' }] }),
         "colors[0].entity_id 'light.example' must be a scene"
     );
+    t.throws(
+        () => card.setConfig({ colors: [{ entity_id: 'group.example' }] }),
+        "colors[0].entity_id 'group.example' must be a valid light entity"
+    );
+    t.throws(() => card.setConfig({ colors: [{ type: 'call-service' }] }), 'You need to define colors[0].service');
+    t.throws(
+        () => card.setConfig({ colors: [{ type: 'call-service', service: 'shitty_service' }] }),
+        "colors[0].service 'shitty_service' must be a valid service"
+    );
     t.notThrows(() => card.setConfig({ entity: 'light.example', colors: [{ hs_color: [0, 0] }] }));
 });
 
@@ -49,8 +58,14 @@ test('Clicking the icons call the right function', t => {
         entity: 'light.example',
         colors: [
             { hs_color: [180, 50], brightness: 200 },
-            { type: 'scene', entity_id: 'scene.romantic' },
-            { type: 'script', entity_id: 'script.night_mode' }
+            { type: 'scene', entity_id: 'scene.romantic' }, // Deprecated config, but should still work
+            { type: 'script', entity_id: 'script.night_mode' }, // Deprecated config, but should still work
+            { type: 'call-service', service: 'homeassistant.restart' },
+            {
+                type: 'call-service',
+                service: 'hue.hue_activate_scene',
+                service_data: { group_name: 'kitchen', scene_name: 'kitchen_blue' }
+            }
         ]
     });
     card.content.parentNode.querySelector('.color-circle:nth-child(2)').click();
@@ -65,6 +80,16 @@ test('Clicking the icons call the right function', t => {
 
     card.content.parentNode.querySelector('.color-circle:nth-child(4)').click();
     t.deepEqual(called, { domain: 'script', service: 'turn_on', payload: { entity_id: 'script.night_mode' } });
+
+    card.content.parentNode.querySelector('.color-circle:nth-child(5)').click();
+    t.deepEqual(called, { domain: 'homeassistant', service: 'restart', payload: {} });
+
+    card.content.parentNode.querySelector('.color-circle:nth-child(6)').click();
+    t.deepEqual(called, {
+        domain: 'hue',
+        service: 'hue_activate_scene',
+        payload: { group_name: 'kitchen', scene_name: 'kitchen_blue' }
+    });
 });
 
 test("Changing HASS creates the card, but doesn't updated it", t => {
