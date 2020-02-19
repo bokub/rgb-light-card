@@ -11,6 +11,7 @@ deploy:
     provider: npm
     email: npm.bokub@mail.com
     api_key: $NPM_TOKEN
+    edge: true
     on:
         tags: true
 
