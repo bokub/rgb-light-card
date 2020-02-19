@@ -102,11 +102,11 @@ entities:
 
 ## Calling Services
 
-This can call any service available on Home Assistant. The official [Home Assistant Service Calls](https://www.home-assistant.io/docs/scripts/service-calls/) documentation can be used for reference.
+By default, clicking an icon calls the `light.turn_on` service with the options you defined.
 
-> #### Pro tip
->
-> You can view all services available the **Developer Tools > Service** page of your Home Assistant
+If you want more flexibility, you can use `type: call-service` to call a different service, with the data you want.
+
+You can find more information about service in the [Home Assistant documentation](https://www.home-assistant.io/docs/scripts/service-calls/)
 
 Example configuration:
 
