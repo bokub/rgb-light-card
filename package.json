@@ -1,7 +1,7 @@
 {
     "name": "rgb-light-card",
     "description": "A Lovelace custom card for RGB lights",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "devDependencies": {
@@ -14,8 +14,7 @@
         "yamljs": "^0.3.0"
     },
     "files": [
-        "card.js",
-        "hacs.json"
+        "card.js"
     ],
     "homepage": "https://github.com/bokub/rgb-light-card",
     "keywords": [

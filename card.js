@@ -54,8 +54,8 @@ class RGBLightCard extends HTMLElement {
         return style;
     }
 
-    setConfig(config) {
-        config = RGBLightCard.ensureBackwardCompatibility(config);
+    setConfig(haConfig) {
+        const config = RGBLightCard.ensureBackwardCompatibility(haConfig);
 
         // Colors must be a defined array
         if (!Array.isArray(config.colors)) {
@@ -109,7 +109,9 @@ class RGBLightCard extends HTMLElement {
     }
 
     // Transform a deprecated config into a more recent one
-    static ensureBackwardCompatibility(config) {
+    static ensureBackwardCompatibility(originalConfig) {
+        // Create a deep copy of the config
+        const config = JSON.parse(JSON.stringify(originalConfig));
         if (!config.colors || !Array.isArray(config.colors)) {
             return config;
         }
@@ -163,7 +165,7 @@ class RGBLightCard extends HTMLElement {
 customElements.define('rgb-light-card', RGBLightCard);
 
 console.info(
-    '\n %c RGB Light Card %c v1.4.0 %c \n',
+    '\n %c RGB Light Card %c v1.4.1 %c \n',
     'background-color: #555;color: #fff;padding: 4px 2px 4px 4px;border-radius: 3px 0 0 3px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: #bc81e0;background-image: linear-gradient(90deg, #b65cff, #11cbfa);color: #fff;padding: 4px 4px 4px 2px;border-radius: 0 3px 3px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: transparent'
