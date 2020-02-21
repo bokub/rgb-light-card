@@ -140,6 +140,17 @@ class RGBLightCard extends HTMLElement {
         if (color['color_name']) {
             return color['color_name'];
         }
+        if (color['color_temp'] || color['kelvin']) {
+            // https://git.io/JvRKs
+            let temp = parseInt(color['color_temp'], 10) || 1000000 / parseInt(color['kelvin'], 10);
+            temp = Math.max(154, Math.min(500, temp));
+            const lin = (tr, cr, val) => cr.map(c => ((val - tr[0]) * (c[1] - c[0])) / (tr[1] - tr[0]) + c[0]);
+            const center = (500 + 154) / 2;
+            const miredRange = temp < center ? [154, center] : [center, 500]; // https://git.io/JvRKR
+            // prettier-ignore
+            const rgbRange = temp < center ? [[166, 255], [209, 255], [255, 255]] : [[255, 255], [255, 160], [255, 0]];
+            return `rgb(${lin(miredRange, rgbRange, temp).join(',')})`;
+        }
         if (Array.isArray(color['rgb_color']) && color['rgb_color'].length === 3) {
             return `rgb(${color['rgb_color'].join(',')})`;
         }

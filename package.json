@@ -37,8 +37,8 @@
     "repository": "bokub/rgb-light-card",
     "scripts": {
         "dev": "serve .",
-        "lint": "prettier --write **/*.{js,json,md,yml,html}",
-        "check-lint": "prettier --check **/*.{js,json,md,yml,html}",
+        "lint": "prettier --write **/*.{js,md,yml,html} *.json",
+        "check-lint": "prettier --check **/*.{js,md,yml,html} *.json",
         "test": "nyc ava",
         "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
     },

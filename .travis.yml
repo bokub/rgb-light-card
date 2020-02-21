@@ -3,8 +3,8 @@ node_js:
     - 'node'
 
 script:
-    - npm run check-lint
     - npm test
+    - npm run check-lint
 after_success: npm run coverage
 
 deploy:
