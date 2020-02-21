@@ -14,9 +14,11 @@
 
 ## Installation
 
-You can either install this card through [HACS](https://github.com/custom-components/hacs), or follow these simple steps:
+If you have [HACS](https://hacs.xyz/), you can install the RGB Light Card from there and jump to the "Configuration" step
 
-#### 1. Open the Raw Config Editor
+Otherwise, follow these simple steps:
+
+##### 1. Open the Raw Config Editor
 
 <details><summary>(Click to expand)</summary>
 
@@ -28,7 +30,7 @@ You can either install this card through [HACS](https://github.com/custom-compon
 
 </details>
 
-#### 2. Add the `rgb-light-card` to the resources
+##### 2. Add the `rgb-light-card` to the resources
 
 Add the following resource to your Lovelace configuration (typically at the top) :
 
@@ -38,9 +40,7 @@ resources:
       type: js
 ```
 
-## Updating
-
-The RGB Light Card will auto-update automatically a few days after every new release (once your browser cache expires)
+**Note:** The RGB Light Card will upgrade automatically a few days after every new release (once your browser cache expires)
 
 However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding `@X.X.X` at the end of the URL (e.g: `- url: ...@1.2.0`)
 
@@ -183,5 +183,5 @@ MIT © [Boris K](https://github.com/bokub)
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/prettier/prettier
 [hits-href]: https://www.jsdelivr.com/package/npm/rgb-light-card
-[hacs-href]: https://github.com/custom-components/hacs
+[hacs-href]: https://hacs.xyz/
 [codecov-href]: https://codecov.io/gh/bokub/rgb-light-card
