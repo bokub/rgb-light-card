@@ -20,6 +20,10 @@ colors:
   entity_id: script.night_mode
 - hs_color: [60, 30]
   icon_color: "#fff000"
+- color_temp: 100
+- color_temp: 540
+- color_temp: 360
+- kelvin: 4000
 `,
         result:
             '<style> .wrapper { justify-content: flex-start; margin-bottom: -4px; } .color-circle { width: 32px; height: 32px; margin: 4px 8px 8px; } </style>' +
@@ -28,7 +32,11 @@ colors:
             '<div class="color-circle" style="background: turquoise;"></div>' +
             '<div class="color-circle" style="background: rgb(127, 132, 142);"></div>' +
             '<div class="color-circle" style="background: rgb(127, 132, 142);"></div>' +
-            '<div class="color-circle" style="background: rgb(255, 240, 0);"></div>'
+            '<div class="color-circle" style="background: rgb(255, 240, 0);"></div>' +
+            '<div class="color-circle" style="background: rgb(166, 209, 255);"></div>' +
+            '<div class="color-circle" style="background: rgb(255, 160, 0);"></div>' +
+            '<div class="color-circle" style="background: rgb(255, 237, 206);"></div>' +
+            '<div class="color-circle" style="background: rgb(215, 235, 255);"></div>'
     },
     {
         name: 'Test justify and size options',

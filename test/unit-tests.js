@@ -92,7 +92,7 @@ test('Clicking the icons call the right function', t => {
     });
 });
 
-test("Changing HASS creates the card, but doesn't updated it", t => {
+test("Changing HASS creates the card, but doesn't update it", t => {
     const card = new RGBLightCard();
     delete card.content;
     t.falsy(card.content);

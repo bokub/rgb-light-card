@@ -141,15 +141,15 @@ class RGBLightCard extends HTMLElement {
             return color['color_name'];
         }
         if (color['color_temp'] || color['kelvin']) {
-            // https://git.io/JvRKs
-            let temp = parseInt(color['color_temp'], 10) || 1000000 / parseInt(color['kelvin'], 10);
-            temp = Math.max(154, Math.min(500, temp));
-            const lin = (tr, cr, val) => cr.map(c => ((val - tr[0]) * (c[1] - c[0])) / (tr[1] - tr[0]) + c[0]);
+            let mireds = parseInt(color['color_temp'], 10) || Math.round(1000000 / parseInt(color['kelvin'], 10));
+            mireds = Math.max(154, Math.min(500, mireds));
             const center = (500 + 154) / 2;
-            const miredRange = temp < center ? [154, center] : [center, 500]; // https://git.io/JvRKR
-            // prettier-ignore
-            const rgbRange = temp < center ? [[166, 255], [209, 255], [255, 255]] : [[255, 255], [255, 160], [255, 0]];
-            return `rgb(${lin(miredRange, rgbRange, temp).join(',')})`;
+            const cr = [[166, 209, 255], [255, 255, 255], [255, 160, 0]].slice(mireds < center ? 0 : 1); // prettier-ignore
+            const tr = [154, center, 500].slice(mireds < center ? 0 : 1); // Defined here: https://git.io/JvRKR
+            return `rgb(${[0, 1, 2]
+                .map(i => ((mireds - tr[0]) * (cr[1][i] - cr[0][i])) / (tr[1] - tr[0]) + cr[0][i])
+                .map(Math.round)
+                .join(',')})`;
         }
         if (Array.isArray(color['rgb_color']) && color['rgb_color'].length === 3) {
             return `rgb(${color['rgb_color'].join(',')})`;
@@ -176,8 +176,8 @@ class RGBLightCard extends HTMLElement {
 customElements.define('rgb-light-card', RGBLightCard);
 
 console.info(
-    '\n %c RGB Light Card %c v1.4.1 %c \n',
-    'background-color: #555;color: #fff;padding: 4px 2px 4px 4px;border-radius: 3px 0 0 3px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
-    'background-color: #bc81e0;background-image: linear-gradient(90deg, #b65cff, #11cbfa);color: #fff;padding: 4px 4px 4px 2px;border-radius: 0 3px 3px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
+    '\n %c RGB Light Card %c v1.5.0 %c \n',
+    'background-color: #555;color: #fff;padding: 3px 2px 3px 3px;border-radius: 3px 0 0 3px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
+    'background-color: #bc81e0;background-image: linear-gradient(90deg, #b65cff, #11cbfa);color: #fff;padding: 3px 3px 3px 2px;border-radius: 0 3px 3px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: transparent'
 );
