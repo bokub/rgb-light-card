@@ -81,13 +81,14 @@ entities:
 
 ### Options
 
-| Name      | Type   | Requirement  | Default | Description                                                                                                                                                                       |
-| --------- | ------ | ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`    | string | **Required** |         | `custom:rgb-light-card`                                                                                                                                                           |
-| `entity`  | string | **Optional** |         | Entity to control. Must be a light or a [light group](https://www.home-assistant.io/integrations/light.group/). If you don't define it, `entity_id` must be defined in each color |
-| `colors`  | array  | **Required** |         | Colors to display. Check out color options below                                                                                                                                  |
-| `justify` | string | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out [examples](#justify) below                              |
-| `size`    | number | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                                                                  |
+| Name            | Type    | Requirement  | Default | Description                                                                                                                                                                       |
+| --------------- | ------- | ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`          | string  | **Required** |         | `custom:rgb-light-card`                                                                                                                                                           |
+| `entity`        | string  | **Optional** |         | Entity to control. Must be a light or a [light group](https://www.home-assistant.io/integrations/light.group/). If you don't define it, `entity_id` must be defined in each color |
+| `colors`        | array   | **Required** |         | Colors to display. Check out color options below                                                                                                                                  |
+| `justify`       | string  | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out [examples](#justify) below                              |
+| `size`          | number  | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                                                                  |
+| `hide_when_off` | boolean | **Optional** | `false` | Hide all the icons if the entity state is `off`                                                                                                                                   |
 
 ### Colors options
 

@@ -26,7 +26,7 @@ colors:
 - kelvin: 4000
 `,
         result:
-            '<style> .wrapper { justify-content: flex-start; margin-bottom: -4px; } .color-circle { width: 32px; height: 32px; margin: 4px 8px 8px; } </style>' +
+            '<style> .wrapper { justify-content: flex-start; margin-bottom: -4px; } .wrapper.hidden { display: none; } .color-circle { width: 32px; height: 32px; margin: 4px 8px 8px; } </style>' +
             '<div class="color-circle" style="background: rgb(255, 127, 255);"></div>' +
             '<div class="color-circle" style="background: hsl(60, 100%, 85%);"></div>' +
             '<div class="color-circle" style="background: turquoise;"></div>' +
@@ -50,7 +50,7 @@ justify: around
 size: 28
 `,
         result:
-            '<style> .wrapper { justify-content: space-around; margin-bottom: -3.5px; } .color-circle { width: 28px; height: 28px; margin: 3.5px 7px 7px; } </style>' +
+            '<style> .wrapper { justify-content: space-around; margin-bottom: -3.5px; } .wrapper.hidden { display: none; } .color-circle { width: 28px; height: 28px; margin: 3.5px 7px 7px; } </style>' +
             '<div class="color-circle" style="background: rgb(234, 136, 140);"></div>' +
             '<div class="color-circle" style="background: rgb(251, 180, 140);"></div>' +
             '<div class="color-circle" style="background: rgb(135, 198, 237);"></div>'

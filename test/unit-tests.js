@@ -92,7 +92,7 @@ test('Clicking the icons call the right function', t => {
     });
 });
 
-test("Changing HASS creates the card, but doesn't update it", t => {
+test("Setting HASS creates the card, but doesn't update it", t => {
     const card = new RGBLightCard();
     delete card.content;
     t.falsy(card.content);
@@ -103,4 +103,18 @@ test("Changing HASS creates the card, but doesn't update it", t => {
     const oldContent = card.content;
     card.hass = null;
     t.is(oldContent, card.content);
+});
+
+test('Hide when off option works ', t => {
+    const card = new RGBLightCard();
+    card.setConfig({ entity: 'light.example', colors: [] });
+    card.hass = { states: { 'light.example': { state: 'off' } } };
+    t.false(card.content.classList.contains('hidden')); // Not hidden
+
+    card.setConfig({ entity: 'light.example', colors: [], hide_when_off: true });
+    card.hass = { states: { 'light.example': { state: 'off' } } };
+    t.true(card.content.classList.contains('hidden')); // Hidden
+
+    card.hass = { states: { 'light.example': { state: 'on' } } };
+    t.false(card.content.classList.contains('hidden')); // Not hidden
 });

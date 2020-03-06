@@ -5,6 +5,7 @@ class RGBLightCard extends HTMLElement {
             this.init();
             this.update();
         }
+        this.setVisibility();
     }
 
     init() {
@@ -34,6 +35,7 @@ class RGBLightCard extends HTMLElement {
         const style = document.createElement('style');
         style.textContent = `
         .wrapper { justify-content: ${RGBLightCard.getJustify(this.config.justify)}; margin-bottom: -${s / 8}px; }
+        .wrapper.hidden { display: none; }
         .color-circle {  width: ${s}px; height: ${s}px; margin: ${s / 8}px ${s / 4}px ${s / 4}px; }
         `.replace(/\s\s+/g, ' ');
         return style;
@@ -106,6 +108,21 @@ class RGBLightCard extends HTMLElement {
         }
         const serviceData = { entity_id: this.config.entity, ...color, icon_color: undefined, type: undefined };
         this._hass.callService('light', 'turn_on', serviceData);
+    }
+
+    setVisibility() {
+        if (
+            this.content &&
+            this.config &&
+            this.config.entity &&
+            this._hass &&
+            this._hass.states &&
+            this._hass.states.hasOwnProperty(this.config.entity)
+        ) {
+            const hidden = this.config['hide_when_off'] && this._hass.states[this.config.entity].state === 'off';
+            this.content.className = hidden ? 'wrapper hidden' : 'wrapper';
+            // this.content.classList.toggle('hidden', hidden);
+        }
     }
 
     // Transform a deprecated config into a more recent one
