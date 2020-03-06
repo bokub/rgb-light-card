@@ -117,4 +117,8 @@ test('Hide when off option works ', t => {
 
     card.hass = { states: { 'light.example': { state: 'on' } } };
     t.false(card.content.classList.contains('hidden')); // Not hidden
+
+    card.setConfig({ colors: [], hide_when_off: true });
+    card.hass = { states: { 'light.example': { state: 'off' } } };
+    t.false(card.content.classList.contains('hidden')); // Not hidden
 });
