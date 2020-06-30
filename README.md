@@ -52,6 +52,7 @@ Example configuration:
 
 ```yaml
 type: entities
+show_header_toggle: false
 entities:
     # Displays the light entity. It's optional
     - entity: light.example_light
