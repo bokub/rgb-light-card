@@ -17,7 +17,7 @@ deploy:
     - provider: releases
       api_key: $GH_TOKEN
       file:
-          - rgb-light-card.js
+          - card.js
       on:
           tags: true
 

@@ -15,7 +15,7 @@
         "yamljs": "^0.3.0"
     },
     "files": [
-        "rgb-light-card.js"
+        "card.js"
     ],
     "homepage": "https://github.com/bokub/rgb-light-card",
     "keywords": [
@@ -29,7 +29,7 @@
         "rgb"
     ],
     "license": "MIT",
-    "main": "rgb-light-card.js",
+    "main": "card.js",
     "prettier": "@bokub/prettier-config",
     "repository": "bokub/rgb-light-card",
     "scripts": {
@@ -42,7 +42,7 @@
     "ava": {
         "require": [
             "./test/_setup.js",
-            "./rgb-light-card.js"
+            "./card.js"
         ]
     }
 }
