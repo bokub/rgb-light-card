@@ -18,31 +18,17 @@ If you have [HACS](https://hacs.xyz/), you can install the RGB Light Card from t
 
 Otherwise, follow these simple steps:
 
-##### 1. Open the Raw Config Editor
+1. In your home assistant, go to the `/config/lovelace/resources` page, or navigate to Configuration > Lovelace Dashboards > Resources
 
-<details><summary>(Click to expand)</summary>
+2. Click the **+** button
 
-1. Go to your Lovelace view
+3. Set the URL to `https://cdn.jsdelivr.net/npm/rgb-light-card` and keep "JavaScript Module" as the resource type
 
-2. Click on the three dots menu (top-right) and click on _Configure UI_.
-
-3. Click in the three dots menu again and click on _Raw config editor_.
-
-</details>
-
-##### 2. Add the `rgb-light-card` to the resources
-
-Add the following resource to your Lovelace configuration (typically at the top) :
-
-```yaml
-resources:
-    - url: https://cdn.jsdelivr.net/npm/rgb-light-card
-      type: js
-```
+4. Click "Create"
 
 **Note:** The RGB Light Card will upgrade automatically a few days after every new release (once your browser cache expires)
 
-However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding `@X.X.X` at the end of the URL (e.g: `- url: ...@1.6.0`)
+However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding `@X.X.X` at the end of the URL (e.g: `- url: ...@1.7.0`)
 
 ## Configuration
 

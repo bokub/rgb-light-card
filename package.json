@@ -1,20 +1,21 @@
 {
     "name": "rgb-light-card",
     "description": "A Lovelace custom card for RGB lights",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "devDependencies": {
-        "ava": "^2.4.0",
+        "@bokub/prettier-config": "^1.0.1",
+        "ava": "^3.12.1",
         "browser-env": "^3.3.0",
         "codecov": "^3.6.5",
         "nyc": "^15.0.0",
-        "prettier": "^1.18.2",
+        "prettier": "^1.19.1",
         "serve": "^11.2.0",
         "yamljs": "^0.3.0"
     },
     "files": [
-        "card.js"
+        "rgb-light-card.js"
     ],
     "homepage": "https://github.com/bokub/rgb-light-card",
     "keywords": [
@@ -28,24 +29,20 @@
         "rgb"
     ],
     "license": "MIT",
-    "main": "card.js",
-    "prettier": {
-        "singleQuote": true,
-        "tabWidth": 4,
-        "printWidth": 120
-    },
+    "main": "rgb-light-card.js",
+    "prettier": "@bokub/prettier-config",
     "repository": "bokub/rgb-light-card",
     "scripts": {
         "dev": "serve .",
-        "lint": "prettier --write **/*.{js,md,yml,html} *.json",
-        "check-lint": "prettier --check **/*.{js,md,yml,html} *.json",
+        "prettier": "prettier --write **/*.{js,ts,json,html,md,yml}",
+        "check-prettier": "prettier --check **/*.{js,ts,json,html,md,yml}",
         "test": "nyc ava",
         "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
     },
     "ava": {
         "require": [
             "./test/_setup.js",
-            "./card.js"
+            "./rgb-light-card.js"
         ]
     }
 }

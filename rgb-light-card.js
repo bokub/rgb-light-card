@@ -23,20 +23,32 @@ class RGBLightCard extends HTMLElement {
         this.content.appendChild(this.getDynamicCSS());
         for (const color of this.config.colors) {
             const element = document.createElement('div');
-            element.className = 'color-circle';
-            element.style.background = RGBLightCard.getCSSColor(color);
-            element.addEventListener('click', () => this.applyColor(color));
+            element.className = 'color';
+
+            const circle = document.createElement('div');
+            circle.className = 'color-circle';
+            circle.style.background = RGBLightCard.getCSSColor(color);
+            circle.addEventListener('click', () => this.applyColor(color));
+            element.appendChild(circle);
+
+            const label = document.createElement('div');
+            label.className = 'color-label';
+            label.innerHTML = color.label || '';
+            element.appendChild(label);
+
             this.content.appendChild(element);
         }
     }
 
     getDynamicCSS() {
-        const s = parseFloat(this.config.size) || 32;
+        const s = parseFloat(this.config.size) || 32; // Circle size
+        const fs = parseFloat(this.config.label_size) || 12; // Label font size
         const style = document.createElement('style');
         style.textContent = `
         .wrapper { justify-content: ${RGBLightCard.getJustify(this.config.justify)}; margin-bottom: -${s / 8}px; }
         .wrapper.hidden { display: none; }
         .color-circle {  width: ${s}px; height: ${s}px; margin: ${s / 8}px ${s / 4}px ${s / 4}px; }
+        .color-label { font-size: ${fs}px; margin-bottom: ${s / 8}px; }
         `.replace(/\s\s+/g, ' ');
         return style;
     }
@@ -45,12 +57,18 @@ class RGBLightCard extends HTMLElement {
         const style = document.createElement('style');
         style.textContent = `
         .wrapper { cursor: auto; display: flex; flex-wrap: wrap; }
+        .color { flex-basis: 0px; }
         .color-circle {
             border-radius: 50%; cursor: pointer; transition: box-shadow 0.15s ease-in-out;
             box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
         }
         .color-circle:hover {
             box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+        }
+        .color-label {
+            color: var(--primary-text-color);
+            text-align: center;
+            overflow-wrap: anywhere;
         }
         `.replace(/\s\s+/g, ' ');
         return style;
@@ -106,7 +124,13 @@ class RGBLightCard extends HTMLElement {
             this._hass.callService(domain, service, color.service_data || {});
             return;
         }
-        const serviceData = { entity_id: this.config.entity, ...color, icon_color: undefined, type: undefined };
+        const serviceData = {
+            entity_id: this.config.entity,
+            ...color,
+            icon_color: undefined,
+            type: undefined,
+            label: undefined
+        };
         this._hass.callService('light', 'turn_on', serviceData);
     }
 
@@ -193,7 +217,7 @@ class RGBLightCard extends HTMLElement {
 customElements.define('rgb-light-card', RGBLightCard);
 
 console.info(
-    '\n %c RGB Light Card %c v1.6.0 %c \n',
+    '\n %c RGB Light Card %c v1.7.0 %c \n',
     'background-color: #555;color: #fff;padding: 3px 2px 3px 3px;border-radius: 3px 0 0 3px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: #bc81e0;background-image: linear-gradient(90deg, #b65cff, #11cbfa);color: #fff;padding: 3px 3px 3px 2px;border-radius: 0 3px 3px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: transparent'

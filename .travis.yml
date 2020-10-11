@@ -4,15 +4,21 @@ node_js:
 
 script:
     - npm test
-    - npm run check-lint
+    - npm run check-prettier
+
 after_success: npm run coverage
 
 deploy:
-    provider: npm
-    email: npm.bokub@mail.com
-    api_key: $NPM_TOKEN
-    edge: true
-    on:
-        tags: true
+    - provider: npm
+      email: $NPM_EMAIL
+      api_key: $NPM_TOKEN
+      on:
+          tags: true
+    - provider: releases
+      api_key: $GH_TOKEN
+      file:
+          - rgb-light-card.js
+      on:
+          tags: true
 
 after_deploy: curl https://purge.jsdelivr.net/npm/rgb-light-card
