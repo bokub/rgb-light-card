@@ -3,8 +3,8 @@ node_js:
     - 'node'
 
 script:
-    - npm test
     - npm run check-prettier
+    - npm test
 
 after_success: npm run coverage
 

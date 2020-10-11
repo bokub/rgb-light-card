@@ -75,6 +75,7 @@ entities:
 | `colors`        | array   | **Required** |         | Colors to display. Check out color options below                                                                                                                                  |
 | `justify`       | string  | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out [examples](#justify) below                              |
 | `size`          | number  | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                                                                  |
+| `label_size`    | number  | **Optional** | `12`    | Size of the labels font, in pixels                                                                                                                                                |
 | `hide_when_off` | boolean | **Optional** | `false` | Hide all the icons if the entity state is `off`                                                                                                                                   |
 
 ### Colors options
@@ -83,6 +84,7 @@ entities:
 | ---------------------------------------------------------- | ------ | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** |         | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options |
 | `icon_color`                                               | string | **Optional** |         | Override icon color. Check out [examples](#icon-color) below                                                                                                                                                                                       |
+| `label`                                                    | string | **Optional** |         | Optional color label. Check out [examples](#labels) below                                                                                                                                                                                          |
 | `entity_id`                                                | string | **Optional** |         | Override the `entity` option for this specific color                                                                                                                                                                                               |
 | `type`                                                     | string | **Optional** | `light` | Can be set to `light` (default), or `call-service` to change the click action. Read the [explanation](#calling-services) just below                                                                                                                |
 | `service`                                                  | string | **Optional** |         | Used with the `call-service` type to specify the service to call for the click action                                                                                                                                                              |
@@ -129,7 +131,7 @@ Note that you can mix lights and service calls in the same card
 
 The `icon_color` is still optional, but will be grey by default
 
-## Examples
+## Customization examples
 
 ### Icon color
 
@@ -145,9 +147,24 @@ This means your `icon_color` can be:
 
 The 5 examples above will render like this:
 
-![Icon color examples](https://github.com/bokub/rgb-light-card/raw/images/icon_color_examples.png)
+![Light icon color examples](https://github.com/bokub/rgb-light-card/raw/images/icon_color_light.png)
+![Dark icon color examples](https://github.com/bokub/rgb-light-card/raw/images/icon_color_dark.png)
 
 ⚠️ You **must** wrap your value between quotes if it contains the `#` character
+
+### Labels
+
+Small labels can be added below color icons, using the `label` option of each color.
+Their size can be customized with the `label_size` option (default to 12 pixels).
+
+Labels can be just a text, but also accept HTML, which means you can be really creative:
+
+-   Simple text: `label: Red`
+-   Bold text: `label: <b>Orange</b>`
+-   Or more complex HTML: `label: '<span style="color: #609fc6">Blue</span>'`
+
+![Light label examples](https://github.com/bokub/rgb-light-card/raw/images/labels_light.png)
+![Dark label examples](https://github.com/bokub/rgb-light-card/raw/images/labels_dark.png)
 
 ### Justify
 
@@ -155,7 +172,8 @@ There are 5 possible values for the `justify` option: `left`,`right`,`center`,`b
 
 Here are how the different values are handled:
 
-![Justify examples](https://github.com/bokub/rgb-light-card/raw/images/justify_examples.png)
+![Light justify examples](https://github.com/bokub/rgb-light-card/raw/images/justify_light.png)
+![Dark justify examples](https://github.com/bokub/rgb-light-card/raw/images/justify_dark.png)
 
 ## License
 
