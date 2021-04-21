@@ -36,7 +36,7 @@ colors:
             '<div class="color"><div class="color-circle" style="background: rgb(166, 209, 255);"></div><div class="color-label"></div></div>' +
             '<div class="color"><div class="color-circle" style="background: rgb(255, 160, 0);"></div><div class="color-label"></div></div>' +
             '<div class="color"><div class="color-circle" style="background: rgb(255, 237, 206);"></div><div class="color-label"></div></div>' +
-            '<div class="color"><div class="color-circle" style="background: rgb(215, 235, 255);"></div><div class="color-label"></div></div>'
+            '<div class="color"><div class="color-circle" style="background: rgb(215, 235, 255);"></div><div class="color-label"></div></div>',
     },
     {
         name: 'Test justify and size options',
@@ -55,12 +55,12 @@ label_size: 10
             '<style> .wrapper { justify-content: space-around; margin-bottom: -3.5px; } .wrapper.hidden { display: none; } .color-circle { width: 28px; height: 28px; margin: 3.5px 7px 7px; } .color-label { font-size: 10px; margin-bottom: 3.5px; } </style>' +
             '<div class="color"><div class="color-circle" style="background: rgb(234, 136, 140);"></div><div class="color-label"></div></div>' +
             '<div class="color"><div class="color-circle" style="background: rgb(251, 180, 140);"></div><div class="color-label"></div></div>' +
-            '<div class="color"><div class="color-circle" style="background: rgb(135, 198, 237);"></div><div class="color-label">Blue</div></div>'
-    }
+            '<div class="color"><div class="color-circle" style="background: rgb(135, 198, 237);"></div><div class="color-label">Blue</div></div>',
+    },
 ];
 
 for (const testCase of testCases) {
-    test(testCase.name || 'Unnamed test', t => {
+    test(testCase.name || 'Unnamed test', (t) => {
         const card = new RGBLightCard();
         if (testCase.config) {
             card.setConfig(YAML.parse(testCase.config));

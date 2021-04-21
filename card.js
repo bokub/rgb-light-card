@@ -14,7 +14,7 @@ class RGBLightCard extends HTMLElement {
 
         this.content = document.createElement('div');
         this.content.className = 'wrapper';
-        this.content.onclick = ev => ev.stopPropagation();
+        this.content.onclick = (ev) => ev.stopPropagation();
         shadow.appendChild(this.content);
     }
 
@@ -129,7 +129,7 @@ class RGBLightCard extends HTMLElement {
             ...color,
             icon_color: undefined,
             type: undefined,
-            label: undefined
+            label: undefined,
         };
         this._hass.callService('light', 'turn_on', serviceData);
     }
@@ -188,7 +188,7 @@ class RGBLightCard extends HTMLElement {
             const cr = [[166, 209, 255], [255, 255, 255], [255, 160, 0]].slice(mireds < center ? 0 : 1); // prettier-ignore
             const tr = [154, center, 500].slice(mireds < center ? 0 : 1); // Defined here: https://git.io/JvRKR
             return `rgb(${[0, 1, 2]
-                .map(i => ((mireds - tr[0]) * (cr[1][i] - cr[0][i])) / (tr[1] - tr[0]) + cr[0][i])
+                .map((i) => ((mireds - tr[0]) * (cr[1][i] - cr[0][i])) / (tr[1] - tr[0]) + cr[0][i])
                 .map(Math.round)
                 .join(',')})`;
         }
@@ -208,7 +208,7 @@ class RGBLightCard extends HTMLElement {
                 right: 'flex-end',
                 center: 'center',
                 between: 'space-between',
-                around: 'space-around'
+                around: 'space-around',
             }[option] || 'flex-start'
         );
     }

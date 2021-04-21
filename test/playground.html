@@ -82,23 +82,23 @@ colors:
     icon_color: '#fff8b0'`,
                 card: null,
                 error: '',
-                service: null
+                service: null,
             }),
             computed: {
                 config() {
                     return YAML.parse(this.rawConfig);
-                }
+                },
             },
             watch: {
                 rawConfig() {
                     this.setConfig();
-                }
+                },
             },
             mounted() {
                 this.card = document.getElementById('card');
                 this.setConfig();
                 this.card.hass = {
-                    callService: this.callService
+                    callService: this.callService,
                 };
             },
             methods: {
@@ -106,7 +106,7 @@ colors:
                     this.service = YAML.stringify(
                         {
                             service: `${domain}.${service}`,
-                            data: JSON.parse(JSON.stringify(payload))
+                            data: JSON.parse(JSON.stringify(payload)),
                         },
                         8
                     );
@@ -120,8 +120,8 @@ colors:
                         this.error = e;
                         throw e;
                     }
-                }
-            }
+                },
+            },
         });
     </script>
 </html>

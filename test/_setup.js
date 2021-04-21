@@ -7,7 +7,7 @@ global.customElements = {
         if (name === 'rgb-light-card') {
             global.RGBLightCard = constructor;
         }
-    }
+    },
 };
 
 // Mock HTMLElement

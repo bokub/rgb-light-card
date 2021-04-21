@@ -5,12 +5,12 @@
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "devDependencies": {
-        "@bokub/prettier-config": "^1.0.1",
+        "@bokub/prettier-config": "^1.1.0",
         "ava": "^3.12.1",
         "browser-env": "^3.3.0",
         "codecov": "^3.6.5",
         "nyc": "^15.0.0",
-        "prettier": "^1.19.1",
+        "prettier": "^2.2.1",
         "serve": "^11.2.0",
         "yamljs": "^0.3.0"
     },
@@ -33,9 +33,9 @@
     "prettier": "@bokub/prettier-config",
     "repository": "bokub/rgb-light-card",
     "scripts": {
-        "dev": "serve .",
-        "prettier": "prettier --write **/*.{js,ts,json,html,md,yml}",
-        "check-prettier": "prettier --check **/*.{js,ts,json,html,md,yml}",
+        "dev": "serve -C .",
+        "prettier": "prettier --write --ignore-path .gitignore .",
+        "check-prettier": "prettier --check --ignore-path .gitignore . ",
         "test": "nyc ava",
         "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
     },
