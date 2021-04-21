@@ -212,9 +212,47 @@ class RGBLightCard extends HTMLElement {
             }[option] || 'flex-start'
         );
     }
+
+    // Default config when creating the card from the UI
+    static getStubConfig(ha) {
+        const supportedEntities = Object.values(ha.states).filter(
+            (entity) =>
+                entity.entity_id.indexOf('light.') === 0 &&
+                entity.attributes &&
+                entity.attributes.supported_color_modes &&
+                entity.attributes.supported_color_modes.indexOf('hs') !== -1
+        );
+        const entity = supportedEntities.length > 0 ? supportedEntities[0].entity_id : 'light.example_light';
+
+        return {
+            type: 'entities',
+            show_header_toggle: false,
+            entities: [
+                { entity: entity },
+                {
+                    type: 'custom:rgb-light-card',
+                    entity: entity,
+                    colors: [
+                        { rgb_color: [234, 136, 140], brightness: 255, transition: 1 },
+                        { rgb_color: [251, 180, 139], brightness: 200, transition: 1 },
+                        { rgb_color: [136, 198, 237], brightness: 150, transition: 1 },
+                        { rgb_color: [140, 231, 185], brightness: 100, transition: 1 },
+                    ],
+                },
+            ],
+        };
+    }
 }
 
 customElements.define('rgb-light-card', RGBLightCard);
+
+window.customCards = window.customCards || [];
+window.customCards.push({
+    type: 'rgb-light-card',
+    name: 'RGB Light Card',
+    description: 'A custom card for RGB lights',
+    preview: true,
+});
 
 console.info(
     '\n %c RGB Light Card %c v1.8.0 %c \n',
