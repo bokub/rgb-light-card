@@ -1,9 +1,9 @@
 # RGB Light Card
 
-[![Build Status][build-src]][build-href]
+[![Codecov][codecov-src]][codecov-href]
 [![Version][version-src]][version-href]
 [![HACS: Default][hacs-src]][hacs-href]
-[![Codecov][codecov-src]][codecov-href]
+[![Downloads][downloads-src]][downloads-href]
 [![Hits per month][hits-src]][hits-href]
 [![code style: prettier][code-style-src]][code-style-href]
 
@@ -18,7 +18,7 @@ If you have [HACS](https://hacs.xyz/), you can install the RGB Light Card from t
 
 Otherwise, follow these simple steps:
 
-1. In your home assistant, go to the `/config/lovelace/resources` page, or navigate to Configuration > Lovelace Dashboards > Resources
+1. In your home assistant, go to the `/config/lovelace/resources` page, or navigate to Configuration > Lovelace Dashboards > Resources tab
 
 2. Click the **+** button
 
@@ -28,7 +28,7 @@ Otherwise, follow these simple steps:
 
 **Note:** The RGB Light Card will upgrade automatically a few days after every new release (once your browser cache expires)
 
-However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding `@X.X.X` at the end of the URL (e.g: `- url: ...@1.7.1`)
+However, you can enforce a [specific version](https://github.com/bokub/rgb-light-card/releases) by adding `@X.X.X` at the end of the URL (e.g: `https://[...]/rgb-light-card@1.8.0`)
 
 ## Configuration
 
@@ -76,7 +76,7 @@ entities:
 | `justify`       | string  | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out [examples](#justify) below                              |
 | `size`          | number  | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                                                                  |
 | `label_size`    | number  | **Optional** | `12`    | Size of the labels font, in pixels                                                                                                                                                |
-| `hide_when_off` | boolean | **Optional** | `false` | Hide all the icons if the entity state is `off`                                                                                                                                   |
+| `hide_when_off` | boolean | **Optional** | `false` | Hide all the icons if the entity state is `off` or `unavailable`                                                                                                                  |
 
 ### Colors options
 
@@ -179,15 +179,15 @@ Here are how the different values are handled:
 
 MIT © [Boris K](https://github.com/bokub)
 
-[build-src]: https://flat.badgen.net/travis/bokub/rgb-light-card
 [version-src]: https://runkit.io/bokub/npm-version/branches/master/rgb-light-card?style=flat
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
-[hits-src]: https://data.jsdelivr.com/v1/package/npm/rgb-light-card/badge
+[hits-src]: https://flat.badgen.net/jsdelivr/hits/npm/rgb-light-card
+[downloads-src]: https://flat.badgen.net/github/assets-dl/bokub/rgb-light-card/1.7.1?label=installs%20(HACS)
 [hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
 [codecov-src]: https://flat.badgen.net/codecov/c/github/bokub/rgb-light-card
-[build-href]: https://travis-ci.org/bokub/rgb-light-card
 [version-href]: https://www.npmjs.com/package/rgb-light-card
-[code-style-href]: https://github.com/prettier/prettier
+[code-style-href]: https://github.com/bokub/prettier-config
 [hits-href]: https://www.jsdelivr.com/package/npm/rgb-light-card
+[downloads-href]: https://api.github.com/repos/bokub/rgb-light-card/releases/assets/26831436
 [hacs-href]: https://hacs.xyz/
 [codecov-href]: https://codecov.io/gh/bokub/rgb-light-card

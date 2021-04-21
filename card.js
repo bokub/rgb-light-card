@@ -143,9 +143,9 @@ class RGBLightCard extends HTMLElement {
             this._hass.states &&
             this._hass.states.hasOwnProperty(this.config.entity)
         ) {
-            const hidden = this.config['hide_when_off'] && this._hass.states[this.config.entity].state === 'off';
+            const isOff = ['off', 'unavailable'].indexOf(this._hass.states[this.config.entity].state) !== -1;
+            const hidden = this.config['hide_when_off'] && isOff;
             this.content.className = hidden ? 'wrapper hidden' : 'wrapper';
-            // this.content.classList.toggle('hidden', hidden);
         }
     }
 
@@ -217,7 +217,7 @@ class RGBLightCard extends HTMLElement {
 customElements.define('rgb-light-card', RGBLightCard);
 
 console.info(
-    '\n %c RGB Light Card %c v1.7.1 %c \n',
+    '\n %c RGB Light Card %c v1.8.0 %c \n',
     'background-color: #555;color: #fff;padding: 3px 2px 3px 3px;border-radius: 3px 0 0 3px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: #bc81e0;background-image: linear-gradient(90deg, #b65cff, #11cbfa);color: #fff;padding: 3px 3px 3px 2px;border-radius: 0 3px 3px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: transparent'

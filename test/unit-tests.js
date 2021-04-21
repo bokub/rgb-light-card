@@ -115,6 +115,9 @@ test('Hide when off option works ', (t) => {
     card.hass = { states: { 'light.example': { state: 'off' } } };
     t.true(card.content.classList.contains('hidden')); // Hidden
 
+    card.hass = { states: { 'light.example': { state: 'unavailable' } } };
+    t.true(card.content.classList.contains('hidden')); // Hidden
+
     card.hass = { states: { 'light.example': { state: 'on' } } };
     t.false(card.content.classList.contains('hidden')); // Not hidden
 

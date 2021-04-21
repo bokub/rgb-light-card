@@ -1,7 +1,7 @@
 {
     "name": "rgb-light-card",
     "description": "A Lovelace custom card for RGB lights",
-    "version": "1.7.1",
+    "version": "1.8.0",
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "devDependencies": {
