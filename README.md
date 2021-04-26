@@ -32,9 +32,9 @@ However, you can enforce a [specific version](https://github.com/bokub/rgb-light
 
 ## Configuration
 
-The `rbg-light-card` is meant to be included in the [Lovelace Entities Card](https://www.home-assistant.io/lovelace/entities/)
+The `rgb-light-card` is meant to be included in the [Lovelace Entities Card](https://www.home-assistant.io/lovelace/entities/)
 
-You can start with a sample configuration by choosing "**Custom: RGB Light Card**" in the Lovelace card selector
+You can start with a sample configuration by choosing "**Custom: RGB Light Card**" in the Lovelace card picker
 
 Example configuration:
 
