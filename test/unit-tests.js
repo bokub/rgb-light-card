@@ -105,7 +105,7 @@ test("Setting HASS creates the card, but doesn't update it", (t) => {
     t.is(oldContent, card.content);
 });
 
-test('Hide when off option works ', (t) => {
+test('hide_when_off option works', (t) => {
     const card = new RGBLightCard();
     card.setConfig({ entity: 'light.example', colors: [] });
     card.hass = { states: { 'light.example': { state: 'off' } } };
@@ -124,4 +124,33 @@ test('Hide when off option works ', (t) => {
     card.setConfig({ colors: [], hide_when_off: true });
     card.hass = { states: { 'light.example': { state: 'off' } } };
     t.false(card.content.classList.contains('hidden')); // Not hidden
+});
+
+test('Card is added to window.customCards', (t) => {
+    new RGBLightCard();
+    t.is(window.customCards.length, 1);
+    t.deepEqual(window.customCards[0], {
+        type: 'rgb-light-card',
+        name: 'RGB Light Card',
+        description: 'A custom card for RGB lights',
+        preview: true,
+    });
+});
+
+test('Card has a stub config', (t) => {
+    let conf = RGBLightCard.getStubConfig({ states: {} });
+    t.is(conf.entities[1].entity, 'light.example_light');
+
+    conf = RGBLightCard.getStubConfig({
+        states: {
+            'plop.light_1': { attributes: { supported_color_modes: ['hs'] }, entity_id: 'plop.light_1' },
+            'light.light_2': { attributes: { supported_color_modes: ['onoff'] }, entity_id: 'light.light_2' },
+            'light.light_3': { attributes: { supported_color_modes: ['onoff', 'rgb'] }, entity_id: 'light.light_3' },
+        },
+    });
+    t.is(conf.entities.length, 2);
+    t.is(conf.entities[0].entity, 'light.light_3');
+    t.is(conf.entities[1].entity, 'light.light_3');
+    t.is(conf.entities[1].type, 'custom:rgb-light-card');
+    t.is(conf.entities[1].colors.length, 4);
 });

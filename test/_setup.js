@@ -27,3 +27,6 @@ global.logged = [];
 console.info = (...args) => {
     logged.push(args.join(' '));
 };
+
+// Mock window for window.customCards
+global.window = {};
