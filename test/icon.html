@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>RGB Light Card Icon tool</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css" />
+        <style>
+            body {
+                background: #20262e;
+                padding: 20px;
+                font-family: Helvetica;
+            }
+            #app {
+                background: #fff;
+                border-radius: 4px;
+                padding: 40px 20px;
+                width: 960px;
+                margin: auto;
+            }
+            .color-circle {
+                width: 32px;
+                height: 32px;
+                margin: 4px 8px 8px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: box-shadow 0.15s ease-in-out;
+                box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+            }
+            textarea {
+                word-break: break-all;
+            }
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="h1 text-monospace mb-3">Icon Tool</div>
+                        <div class="alert alert-info" role="alert">
+                            Use this tool to convert a
+                            <a href="https://materialdesignicons.com/" target="_blank" class="alert-link"
+                                >material design icon</a
+                            >
+                            into pure CSS compatible with the
+                            <a href="https://github.com/bokub/rgb-light-card" target="_blank" class="alert-link"
+                                >RGB Light Card</a
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center mb-2">
+                    <div class="col">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Icon name</span>
+                            </div>
+                            <input
+                                class="form-control text-monospace"
+                                type="text"
+                                spellcheck="false"
+                                v-model="iconName"
+                            />
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Icon color</span>
+                            </div>
+                            <input
+                                class="form-control text-monospace"
+                                type="text"
+                                spellcheck="false"
+                                v-model="iconColor"
+                            />
+                            <div class="input-group-append">
+                                <span class="input-group-text p-0">
+                                    <div class="icon-color btn btn-sm">
+                                        <span class="text-dark">Edit</span>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Background color</span>
+                            </div>
+                            <input
+                                class="form-control text-monospace"
+                                type="text"
+                                spellcheck="false"
+                                v-model="backgroundColor"
+                            />
+                            <div class="input-group-append">
+                                <span class="input-group-text p-0">
+                                    <div class="background-color btn btn-sm">
+                                        <span class="text-dark">Edit</span>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="color-circle mx-auto" :style="'background:'+backgroundCss"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-muted">Copy-paste this in your color options:</div>
+                        <textarea class="form-control text-monospace w-100" rows="10" readonly>
+icon_color: '{{ backgroundCss }}'</textarea
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                iconName: 'mdi-lightbulb',
+                iconColor: '#FFFFFF',
+                backgroundColor: '#EA888C',
+                svg: '',
+            },
+            watch: {
+                iconName: {
+                    handler(v) {
+                        if (v.indexOf('mdi-') === 0) {
+                            fetch(`https://cdn.jsdelivr.net/npm/@mdi/svg@latest/svg/${v.substr(4)}.svg`)
+                                .then((r) => r.text())
+                                .then((r) => {
+                                    if (r.indexOf('Could') === -1) {
+                                        this.svg = r;
+                                    }
+                                });
+                        }
+                    },
+                    immediate: true,
+                },
+            },
+            computed: {
+                coloredSvg() {
+                    let svg = this.svg.toString();
+                    if (svg.indexOf('<svg') > -1) {
+                        svg = svg.substr(svg.indexOf('<svg'));
+                    }
+                    return svg.replace('<path', `<path fill="${this.iconColor}"`);
+                },
+                backgroundCss() {
+                    return `center no-repeat url("data:image/svg+xml,${encodeURIComponent(this.coloredSvg)}") ${
+                        this.backgroundColor
+                    }`;
+                },
+            },
+            mounted() {
+                const options = {
+                    theme: 'monolith',
+                    lockOpacity: true,
+                    comparison: false,
+                    useAsButton: true,
+                    defaultRepresentation: 'HEX',
+                    components: {
+                        hue: true,
+                        interaction: {
+                            input: true,
+                        },
+                    },
+                };
+                Pickr.create({ el: '.icon-color', ...options })
+                    .on('show', (_, instance) => {
+                        instance.setColor(this.iconColor);
+                    })
+                    .on('change', (color) => {
+                        this.iconColor = color.toHEXA();
+                    });
+
+                Pickr.create({ el: '.background-color', ...options })
+                    .on('show', (_, instance) => {
+                        instance.setColor(this.backgroundColor);
+                    })
+                    .on('change', (color) => {
+                        this.backgroundColor = color.toHEXA();
+                    });
+            },
+        });
+    </script>
+</html>

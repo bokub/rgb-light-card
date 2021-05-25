@@ -154,6 +154,16 @@ The 5 examples above will render like this:
 
 ⚠️ You **must** wrap your value between quotes if it contains the `#` character
 
+### Material design icons
+
+As explained above, the `icon_color` option accepts any valid CSS value
+
+If you want icons in your colors, you can use the [icon tool](https://bokub.github.io/rgb-light-card/test/icon.html)
+to convert [material design icons](https://materialdesignicons.com/) into CSS
+
+![Light icons examples](https://github.com/bokub/rgb-light-card/raw/images/icons_light.png)
+![Dark icons examples](https://github.com/bokub/rgb-light-card/raw/images/icons_dark.png)
+
 ### Labels
 
 Small labels can be added below color icons, using the `label` option of each color.
