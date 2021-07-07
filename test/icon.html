@@ -159,7 +159,7 @@ icon_color: '{{ backgroundCss }}'</textarea
                     return svg.replace('<path', `<path fill="${this.iconColor}"`);
                 },
                 backgroundCss() {
-                    return `center no-repeat url("data:image/svg+xml,${encodeURIComponent(this.coloredSvg)}") ${
+                    return `center no-repeat url("data:image/svg+xml,${encodeURIComponent(this.coloredSvg)}"), ${
                         this.backgroundColor
                     }`;
                 },
