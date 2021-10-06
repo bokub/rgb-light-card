@@ -198,7 +198,33 @@ class RGBLightCard extends HTMLElement {
         if (Array.isArray(color['hs_color']) && color['hs_color'].length === 2) {
             return `hsl(${color['hs_color'][0]},100%,${100 - color['hs_color'][1] / 2}%)`;
         }
+        if (Array.isArray(color['xy_color']) && color['xy_color'].length === 2) {
+            const rgb = this.xyToRGB(color['xy_color'][0], color['xy_color'][1], 255);
+            return `rgb(${rgb.join(',')})`;
+        }
         return '#7F848E';
+    }
+
+    // Original python code from Home Assistant: https://git.io/JV8ln
+    static xyToRGB(x, y, brightness) {
+        let Y = brightness / 255;
+        let X = (Y / y) * x;
+        let Z = (Y / y) * (1.0 - x - y);
+        let rgb = [
+            X * 1.656492 - Y * 0.354851 - Z * 0.255038,
+            -X * 0.707196 + Y * 1.655397 + Z * 0.036152,
+            X * 0.051713 - Y * 0.121364 + Z * 1.01153,
+        ];
+
+        rgb = rgb
+            .map((c) => (c <= 0.0031308 ? 12.92 * c : (1.0 + 0.055) * Math.pow(c, 1.0 / 2.4) - 0.055)) // Apply reverse gamma correction
+            .map((c) => Math.max(c, 0)); // Bring all negative components to zero
+
+        let max = Math.max(...rgb);
+
+        return rgb
+            .map((c) => (max > 1 ? c / max : c)) // If one component is greater than 1, weight components by that value
+            .map((c) => Math.floor(c * 255));
     }
 
     static getJustify(option) {
