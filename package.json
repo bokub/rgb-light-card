@@ -1,7 +1,7 @@
 {
     "name": "rgb-light-card",
     "description": "A Lovelace custom card for RGB lights",
-    "version": "1.9.0",
+    "version": "1.10.0",
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "devDependencies": {
@@ -9,8 +9,10 @@
         "ava": "^3.12.1",
         "browser-env": "^3.3.0",
         "codecov": "^3.6.5",
+        "husky": "^7.0.0",
         "nyc": "^15.0.0",
         "prettier": "^2.2.1",
+        "pretty-quick": "^3.1.1",
         "serve": "^11.2.0",
         "yamljs": "^0.3.0"
     },
@@ -37,7 +39,8 @@
         "prettier": "prettier --write --ignore-path .gitignore .",
         "check-prettier": "prettier --check --ignore-path .gitignore . ",
         "test": "nyc ava",
-        "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
+        "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
+        "prepare": "husky install"
     },
     "ava": {
         "require": [

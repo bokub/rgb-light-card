@@ -194,12 +194,12 @@ MIT © [Boris K](https://github.com/bokub)
 [version-src]: https://runkit.io/bokub/npm-version/branches/master/rgb-light-card?style=flat
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
 [hits-src]: https://flat.badgen.net/jsdelivr/hits/npm/rgb-light-card
-[downloads-src]: https://flat.badgen.net/github/assets-dl/bokub/rgb-light-card/1.7.1?label=installs%20(HACS)
+[downloads-src]: https://flat.badgen.net/github/assets-dl/bokub/rgb-light-card/1.9.0?label=installs%20(HACS)
 [hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
 [codecov-src]: https://flat.badgen.net/codecov/c/github/bokub/rgb-light-card
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/bokub/prettier-config
 [hits-href]: https://www.jsdelivr.com/package/npm/rgb-light-card
-[downloads-href]: https://api.github.com/repos/bokub/rgb-light-card/releases/assets/26831436
+[downloads-href]: https://api.github.com/repos/bokub/rgb-light-card/releases/assets/35830930
 [hacs-href]: https://hacs.xyz/
 [codecov-href]: https://codecov.io/gh/bokub/rgb-light-card
