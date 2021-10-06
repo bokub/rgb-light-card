@@ -24,6 +24,10 @@ colors:
 - color_temp: 540
 - color_temp: 360
 - kelvin: 4000
+- xy_color: [0.217, 0.07]
+- xy_color:
+  - 0.368
+  - 0.203
 `,
         result:
             '<style> .wrapper { justify-content: flex-start; margin-bottom: -4px; } .wrapper.hidden { display: none; } .color-circle { width: 32px; height: 32px; margin: 4px 8px 8px; } .color-label { font-size: 12px; margin-bottom: 4px; } </style>' +
@@ -36,7 +40,9 @@ colors:
             '<div class="color"><div class="color-circle" style="background: rgb(166, 209, 255);"></div><div class="color-label"></div></div>' +
             '<div class="color"><div class="color-circle" style="background: rgb(255, 160, 0);"></div><div class="color-label"></div></div>' +
             '<div class="color"><div class="color-circle" style="background: rgb(255, 237, 206);"></div><div class="color-label"></div></div>' +
-            '<div class="color"><div class="color-circle" style="background: rgb(215, 235, 255);"></div><div class="color-label"></div></div>',
+            '<div class="color"><div class="color-circle" style="background: rgb(215, 235, 255);"></div><div class="color-label"></div></div>' +
+            '<div class="color"><div class="color-circle" style="background: rgb(130, 0, 255);"></div><div class="color-label"></div></div>' +
+            '<div class="color"><div class="color-circle" style="background: rgb(254, 129, 255);"></div><div class="color-label"></div></div>',
     },
     {
         name: 'Test justify and size options',
