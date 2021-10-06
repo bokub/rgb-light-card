@@ -37,7 +37,7 @@
         "prettier": "prettier --write --ignore-path .gitignore .",
         "check-prettier": "prettier --check --ignore-path .gitignore . ",
         "test": "nyc ava",
-        "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+        "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
     },
     "ava": {
         "require": [
