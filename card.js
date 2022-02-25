@@ -1,3 +1,17 @@
+// From weather-card
+const fireEvent = (node, type, detail, options) => {
+    options = options || {};
+    detail = detail === null || detail === undefined ? {} : detail;
+    const event = new Event(type, {
+        bubbles: options.bubbles === undefined ? true : options.bubbles,
+        cancelable: Boolean(options.cancelable),
+        composed: options.composed === undefined ? true : options.composed
+    });
+    event.detail = detail;
+    node.dispatchEvent(event);
+    return event;
+};
+
 class RGBLightCard extends HTMLElement {
     set hass(hass) {
         this._hass = hass;
@@ -90,7 +104,7 @@ class RGBLightCard extends HTMLElement {
             const color = config.colors[c];
             const type = color.type || 'light';
             // Check if type is valid
-            if (['light', 'call-service'].indexOf(type) === -1) {
+            if (['light', 'call-service', 'more-info'].indexOf(type) === -1) {
                 throw new Error(`Invalid type '${type}' for colors[${c}]`);
             }
             // If root entity is not defined, ensure light entity_id is defined
@@ -109,6 +123,10 @@ class RGBLightCard extends HTMLElement {
             if (type === 'call-service' && color.service.split('.').length !== 2) {
                 throw new Error(`colors[${c}].service '${color.service}' must be a valid service`);
             }
+            // If call-service, ensure service is defined
+            if (type === 'more-info' && !color.entity_id) {
+                throw new Error(`You need to define colors[${c}].entity_id`);
+            }
         }
 
         this.config = config;
@@ -122,6 +140,10 @@ class RGBLightCard extends HTMLElement {
         if (color.type === 'call-service') {
             const [domain, service] = color.service.split('.');
             this._hass.callService(domain, service, color.service_data || {});
+            return;
+        }
+        if (color.type === 'more-info') {
+            fireEvent(this, 'hass-more-info', { entityId: color.entity_id });
             return;
         }
         const serviceData = {
