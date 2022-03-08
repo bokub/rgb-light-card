@@ -195,12 +195,24 @@ class RGBLightCard extends HTMLElement {
         if (Array.isArray(color['rgb_color']) && color['rgb_color'].length === 3) {
             return `rgb(${color['rgb_color'].join(',')})`;
         }
+        if (Array.isArray(color['rgbw_color']) && color['rgbw_color'].length === 4) {
+            return `rgb(${color['rgbw_color'].slice(0, 3).join(',')})`;
+        }
+        if (Array.isArray(color['rgbww_color']) && color['rgbww_color'].length === 5) {
+            return `rgb(${color['rgbww_color'].slice(0, 3).join(',')})`;
+        }
         if (Array.isArray(color['hs_color']) && color['hs_color'].length === 2) {
             return `hsl(${color['hs_color'][0]},100%,${100 - color['hs_color'][1] / 2}%)`;
         }
         if (Array.isArray(color['xy_color']) && color['xy_color'].length === 2) {
             const rgb = this.xyToRGB(color['xy_color'][0], color['xy_color'][1], 255);
             return `rgb(${rgb.join(',')})`;
+        }
+        if (color['brightness']) {
+            return `rgba(253,216,53,${color['brightness'] / 255})`;
+        }
+        if (color['brightness_pct']) {
+            return `rgba(253,216,53,${color['brightness_pct'] / 100})`;
         }
         return '#7F848E';
     }
@@ -281,7 +293,7 @@ window.customCards.push({
 });
 
 console.info(
-    '\n %c RGB Light Card %c v1.10.0 %c \n',
+    '\n %c RGB Light Card %c v1.11.0 %c \n',
     'background-color: #555;color: #fff;padding: 3px 2px 3px 3px;border-radius: 3px 0 0 3px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: #bc81e0;background-image: linear-gradient(90deg, #b65cff, #11cbfa);color: #fff;padding: 3px 3px 3px 2px;border-radius: 0 3px 3px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: transparent'
