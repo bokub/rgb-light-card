@@ -7,7 +7,7 @@
 [![Hits per month][hits-src]][hits-href]
 [![code style: prettier][code-style-src]][code-style-href]
 
-> A Lovelace custom card for RGB lights
+> A custom card for RGB lights
 
 ![Light](https://github.com/bokub/rgb-light-card/raw/images/light.png)
 ![Dark](https://github.com/bokub/rgb-light-card/raw/images/dark.png)
@@ -18,7 +18,7 @@ If you have [HACS](https://hacs.xyz/), you can install the RGB Light Card from t
 
 Otherwise, follow these simple steps:
 
-1. In your home assistant, go to the `/config/lovelace/resources` page, or navigate to Configuration > Lovelace Dashboards > Resources tab
+1. In your home assistant, go to the `/config/lovelace/resources` page, or navigate to Configuration > Dashboards > Resources tab
 
 2. Click the **+** button
 
@@ -32,7 +32,7 @@ However, you can enforce a [specific version](https://github.com/bokub/rgb-light
 
 ## Configuration
 
-The `rgb-light-card` is meant to be included in the [Lovelace Entities Card](https://www.home-assistant.io/lovelace/entities/)
+The `rgb-light-card` is meant to be included in the [Entities Card](https://www.home-assistant.io/dashboards/entities/)
 
 You can start with a sample configuration by choosing "**Custom: RGB Light Card**" in the Lovelace card picker
 
@@ -73,7 +73,7 @@ entities:
 | Name            | Type    | Requirement  | Default | Description                                                                                                                                                                       |
 | --------------- | ------- | ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `type`          | string  | **Required** |         | `custom:rgb-light-card`                                                                                                                                                           |
-| `entity`        | string  | **Optional** |         | Entity to control. Must be a light or a [light group](https://www.home-assistant.io/integrations/light.group/). If you don't define it, `entity_id` must be defined in each color |
+| `entity`        | string  | **Optional** |         | Entity to control. Must be a light or a [light group](https://www.home-assistant.io/integrations/group). If you don't define it, `entity_id` must be defined in each color |
 | `colors`        | array   | **Required** |         | Colors to display. Check out color options below                                                                                                                                  |
 | `justify`       | string  | **Optional** | `left`  | How to distribute free space between icons. Possible values are `left`,`right`,`center`,`between` and `around`. Check out [examples](#justify) below                              |
 | `size`          | number  | **Optional** | `32`    | Diameter of the icons, in pixels                                                                                                                                                  |
