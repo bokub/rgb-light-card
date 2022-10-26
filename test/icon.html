@@ -107,6 +107,19 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Icon size</span>
+                            </div>
+                            <input class="form-control" type="number" min="0" v-model="scale" />
+                            <div class="input-group-append">
+                                <span class="input-group-text p-0">
+                                    <div class="mx-2">
+                                        <span class="text-dark">%</span>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col mb-5">
                         <div class="color-circle mx-auto" :style="'background:'+backgroundCss"></div>
@@ -132,6 +145,7 @@ icon_color: '{{ backgroundCss }}'</textarea
                 iconName: 'mdi-lightbulb',
                 iconColor: '#FFFFFF',
                 backgroundColor: '#EA888C',
+                scale: 75,
                 svg: '',
             },
             watch: {
@@ -159,9 +173,9 @@ icon_color: '{{ backgroundCss }}'</textarea
                     return svg.replace('<path', `<path fill="${this.iconColor}"`);
                 },
                 backgroundCss() {
-                    return `center no-repeat url("data:image/svg+xml,${encodeURIComponent(this.coloredSvg)}"), ${
-                        this.backgroundColor
-                    }`;
+                    return `center/${this.scale}% no-repeat url("data:image/svg+xml,${encodeURIComponent(
+                        this.coloredSvg
+                    )}"), ${this.backgroundColor}`;
                 },
             },
             mounted() {
