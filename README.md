@@ -96,9 +96,9 @@ entities:
 
 By default, clicking an icon calls the `light.turn_on` service with the options you defined.
 
-If you want more flexibility, you can use `type: call-service` to call a different service, with the data you want.
+If you want more flexibility, you can use `type: call-service` to call a different service, with optional data in a `service_data` object.
 
-You can find more information about service in the [Home Assistant documentation](https://www.home-assistant.io/docs/scripts/service-calls/)
+You can find more information about service calls in the [Home Assistant documentation](https://www.home-assistant.io/docs/scripts/service-calls/)
 
 Example configuration:
 
