@@ -41,14 +41,19 @@ class RGBLightCard extends HTMLElement {
     }
 
     getDynamicCSS() {
-        const s = parseFloat(this.config.size) || 32; // Circle size
-        const fs = parseFloat(this.config.label_size) || 12; // Label font size
+        const size_regex = /([\d.]+)\s*([\w%*]*);?/g;
+        const s_matches = Array.from(String(this.config.size).matchAll(size_regex))[0] || ['32px', 32, 'px'];
+        const s = parseFloat(s_matches[1]) || 32; // Circle size
+        const s_unit = s_matches[2] || 'px'; // Circle size unit
+        const fs_matches = Array.from(String(this.config.label_size).matchAll(size_regex))[0] || ['12px', 12, 'px'];
+        const fs = parseFloat(fs_matches[1]) || 12; // Label font size
+        const fs_unit = fs_matches[2] || 'px'; // Label font size unit
         const style = document.createElement('style');
         style.textContent = `
-        .wrapper { justify-content: ${RGBLightCard.getJustify(this.config.justify)}; margin-bottom: -${s / 8}px; }
+        .wrapper { justify-content: ${RGBLightCard.getJustify(this.config.justify)}; margin-bottom: -${s / 8}${s_unit}; }
         .wrapper.hidden { display: none; }
-        .color-circle {  width: ${s}px; height: ${s}px; margin: ${s / 8}px ${s / 4}px ${s / 4}px; }
-        .color-label { font-size: ${fs}px; margin-bottom: ${s / 8}px; }
+        .color-circle {  width: ${s}${s_unit}; height: ${s}${s_unit}; margin: ${s / 8}${s_unit} ${s / 4}${s_unit} ${s / 4}${s_unit}; }
+        .color-label { font-size: ${fs}${fs_unit}; margin-bottom: ${s / 8}${s_unit}; }
         `.replace(/\s\s+/g, ' ');
         return style;
     }
