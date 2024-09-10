@@ -191,12 +191,12 @@ Here are how the different values are handled:
 
 MIT © [Boris K](https://github.com/bokub)
 
-[version-src]: https://runkit.io/bokub/npm-version/branches/master/rgb-light-card?style=flat
+[version-src]: https://gradgen.bokub.workers.dev/npm/v/rgb-light-card?gradient=b65cff,11cbfa&style=flat&label=version
 [code-style-src]: https://flat.badgen.net/badge/code%20style/prettier/ff69b4
-[hits-src]: https://flat.badgen.net/jsdelivr/hits/npm/rgb-light-card
+[hits-src]: https://data.jsdelivr.com/v1/package/npm/rgb-light-card/badge
 [downloads-src]: https://flat.badgen.net/github/assets-dl/bokub/rgb-light-card/1.11.0?label=installs%20(HACS)
 [hacs-src]: https://flat.badgen.net/badge/HACS/default/orange
-[codecov-src]: https://flat.badgen.net/codecov/c/github/bokub/rgb-light-card
+[codecov-src]: https://img.shields.io/codecov/c/github/bokub/rgb-light-card?style=flat-square
 [version-href]: https://www.npmjs.com/package/rgb-light-card
 [code-style-href]: https://github.com/bokub/prettier-config
 [hits-href]: https://www.jsdelivr.com/package/npm/rgb-light-card
