@@ -49,7 +49,7 @@ entities:
     - type: 'custom:rgb-light-card'
       entity: light.example_light
       colors:
-          # Any option of the light.turn_on service can be used in each color
+          # Any option of the light.turn_on action can be used in each color
           - rgb_color:
                 - 255
                 - 127
@@ -64,9 +64,9 @@ entities:
 
 > #### Pro tip
 >
-> You can test all the colors options in the **Developer Tools > Service** page of your Home Assistant.
+> You can test all the colors options in the **Developer Tools > Actions** page of your Home Assistant.
 >
-> Choose the `light.turn_on` service, change the service data, and call the service to see the result
+> Choose the `light.turn_on` action, edit the options (or the `data` in YAML mode), and click "Perform Action" to see the result
 
 ### Options
 
@@ -84,17 +84,17 @@ entities:
 
 | Name                                                       | Type   | Requirement  | Default | Description                                                                                                                                                                                                                                        |
 | ---------------------------------------------------------- | ------ | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** |         | When you click on a color, it will call the service `light.turn_on` with **all the options you put here** as service data<br> [**Click here**](https://www.home-assistant.io/integrations/light#service-lightturn_on) for the full list of options |
+| `rgb_color`, `hs_color`, `brightness`, `transition` etc... | any    | **Optional** |         | When you click on a color, it will perform the action `light.turn_on` with **all the options you put here** as action data<br> [**Click here**](https://www.home-assistant.io/integrations/light#action-lightturn_on) for the full list of options |
 | `icon_color`                                               | string | **Optional** |         | Override icon color. Check out [examples](#icon-color) below                                                                                                                                                                                       |
 | `label`                                                    | string | **Optional** |         | Optional color label. Check out [examples](#labels) below                                                                                                                                                                                          |
 | `entity_id`                                                | string | **Optional** |         | Override the `entity` option for this specific color                                                                                                                                                                                               |
-| `type`                                                     | string | **Optional** | `light` | Can be set to `light` (default), or `action` to change the click action. Read the [explanation](#calling-services) just below                                                                                                                      |
-| `service`                                                  | string | **Optional** |         | Used with the `action` type to specify the service to call for the click action                                                                                                                                                                    |
-| `data`                                                     | array  | **Optional** |         | Used with the `action` type to specify the data to be passed to the service                                                                                                                                                                        |
+| `type`                                                     | string | **Optional** | `light` | Can be set to `light` (default), or `action` to change the click action. Read the [explanation](#performing-actions) just below                                                                                                                    |
+| `action`                                                   | string | **Optional** |         | Used with the `action` type to specify the action to perform when clicked                                                                                                                                                                          |
+| `data`                                                     | array  | **Optional** |         | Used with the `action` type to specify the data to be passed to the action                                                                                                                                                                         |
 
 ## Performing Actions
 
-By default, clicking an icon performs the `light.turn_on` actions with the options you defined.
+By default, clicking an icon performs the `light.turn_on` action with the options you defined.
 
 If you want more flexibility, you can use `type: action` to perform a different action, with optional data in a `data` object.
 
@@ -128,7 +128,7 @@ entities:
             icon_color: '#77e28a'
 ```
 
-Note that you can mix lights and service calls in the same card
+Note that you can mix lights and actions in the same card
 
 The `icon_color` is still optional, but will be grey by default
 
