@@ -27,64 +27,68 @@ test('Errors are raised if config is invalid', (t) => {
         message: "Invalid type 'automation' for colors[0]",
     });
     t.throws(() => card.setConfig({ colors: [{}] }), { message: 'You need to define entity or colors[0].entity_id' });
-    t.throws(() => card.setConfig({ entity: 'light.example', colors: [{ type: 'scene' }] }), {
-        message: 'You need to define colors[0].entity_id',
-    });
     t.throws(
         () => card.setConfig({ entity: 'light.example', colors: [{ type: 'scene', entity_id: 'light.example' }] }),
-        { message: "colors[0].entity_id 'light.example' must be a scene" }
+        { message: "Invalid type 'scene' for colors[0]" }
     );
     t.throws(() => card.setConfig({ colors: [{ entity_id: 'group.example' }] }), {
         message: "colors[0].entity_id 'group.example' must be a valid light entity",
     });
     t.throws(() => card.setConfig({ colors: [{ type: 'call-service' }] }), {
-        message: 'You need to define colors[0].service',
+        message: 'You need to define colors[0].action',
+    });
+    t.throws(() => card.setConfig({ colors: [{ type: 'action' }] }), {
+        message: 'You need to define colors[0].action',
     });
     t.throws(() => card.setConfig({ colors: [{ type: 'call-service', service: 'shitty_service' }] }), {
-        message: "colors[0].service 'shitty_service' must be a valid service",
+        message: "colors[0].action 'shitty_service' must be a valid action",
+    });
+    t.throws(() => card.setConfig({ colors: [{ type: 'action', action: 'shitty_service' }] }), {
+        message: "colors[0].action 'shitty_service' must be a valid action",
     });
     t.notThrows(() => card.setConfig({ entity: 'light.example', colors: [{ hs_color: [0, 0] }] }));
 });
 
 test('Clicking the icons call the right function', (t) => {
     const card = new RGBLightCard();
+
+    const clickOnCircle = (index) =>
+        card.content.parentNode.querySelector(`.color:nth-child(${index + 1}) .color-circle`).click();
+
     let called = {};
     card.hass = {
         callService(domain, service, payload) {
             called = JSON.parse(JSON.stringify({ domain, service, payload }));
         },
     };
+
     card.setConfig({
         entity: 'light.example',
         colors: [
             { hs_color: [180, 50], brightness: 200 },
-            { type: 'scene', entity_id: 'scene.romantic' }, // Deprecated config, but should still work
-            { type: 'script', entity_id: 'script.night_mode' }, // Deprecated config, but should still work
-            { type: 'call-service', service: 'homeassistant.restart' },
             {
-                type: 'call-service',
-                service: 'hue.hue_activate_scene',
-                service_data: { group_name: 'kitchen', scene_name: 'kitchen_blue' },
+                type: 'call-service', // Deprecated config, but should still work
+                service: 'homeassistant.restart',
+                service_data: { force: true },
+            },
+            {
+                type: 'action',
+                action: 'hue.hue_activate_scene',
+                data: { group_name: 'kitchen', scene_name: 'kitchen_blue' },
             },
         ],
     });
-    card.content.parentNode.querySelector('.color:nth-child(2) .color-circle').click();
+    clickOnCircle(1);
     t.deepEqual(called, {
         domain: 'light',
         service: 'turn_on',
         payload: { entity_id: 'light.example', hs_color: [180, 50], brightness: 200 },
     });
 
-    card.content.parentNode.querySelector('.color:nth-child(3) .color-circle').click();
-    t.deepEqual(called, { domain: 'scene', service: 'turn_on', payload: { entity_id: 'scene.romantic' } });
+    clickOnCircle(2);
+    t.deepEqual(called, { domain: 'homeassistant', service: 'restart', payload: { force: true } });
 
-    card.content.parentNode.querySelector('.color:nth-child(4) .color-circle').click();
-    t.deepEqual(called, { domain: 'script', service: 'turn_on', payload: { entity_id: 'script.night_mode' } });
-
-    card.content.parentNode.querySelector('.color:nth-child(5) .color-circle').click();
-    t.deepEqual(called, { domain: 'homeassistant', service: 'restart', payload: {} });
-
-    card.content.parentNode.querySelector('.color:nth-child(6) .color-circle').click();
+    clickOnCircle(3);
     t.deepEqual(called, {
         domain: 'hue',
         service: 'hue_activate_scene',

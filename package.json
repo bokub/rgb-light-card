@@ -1,9 +1,18 @@
 {
     "name": "rgb-light-card",
-    "description": "A Lovelace custom card for RGB lights",
-    "version": "1.11.0",
+    "description": "A Home Assistant card for RGB lights",
+    "version": "1.12.0",
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
+    "scripts": {
+        "dev": "serve -C .",
+        "ngrok": "ngrok http http://localhost:3000",
+        "prettier": "prettier --write --ignore-path .gitignore .",
+        "check-prettier": "prettier --check --ignore-path .gitignore . ",
+        "test": "nyc ava",
+        "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
+        "prepare": "husky install"
+    },
     "devDependencies": {
         "@bokub/prettier-config": "^1.1.0",
         "ava": "^3.12.1",
@@ -13,7 +22,7 @@
         "nyc": "^15.0.0",
         "prettier": "^2.2.1",
         "pretty-quick": "^3.1.1",
-        "serve": "^11.2.0",
+        "serve": "^14.2.3",
         "yamljs": "^0.3.0"
     },
     "files": [
@@ -27,21 +36,12 @@
         "home-assistant",
         "homeassistant",
         "light",
-        "lovelace",
         "rgb"
     ],
     "license": "MIT",
     "main": "card.js",
     "prettier": "@bokub/prettier-config",
     "repository": "bokub/rgb-light-card",
-    "scripts": {
-        "dev": "serve -C .",
-        "prettier": "prettier --write --ignore-path .gitignore .",
-        "check-prettier": "prettier --check --ignore-path .gitignore . ",
-        "test": "nyc ava",
-        "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
-        "prepare": "husky install"
-    },
     "ava": {
         "require": [
             "./test/_setup.js",

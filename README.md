@@ -7,7 +7,7 @@
 [![Hits per month][hits-src]][hits-href]
 [![code style: prettier][code-style-src]][code-style-href]
 
-> A Lovelace custom card for RGB lights
+> A Home Assistant card for RGB lights
 
 ![Light](https://github.com/bokub/rgb-light-card/raw/images/light.png)
 ![Dark](https://github.com/bokub/rgb-light-card/raw/images/dark.png)
@@ -18,11 +18,11 @@ If you have [HACS](https://hacs.xyz/), you can install the RGB Light Card from t
 
 Otherwise, follow these simple steps:
 
-1. In your home assistant, go to the `/config/lovelace/resources` page, or navigate to Configuration > Lovelace Dashboards > Resources tab
+1. In your home assistant, go to the `/config/lovelace/resources` page, or from your dashboard, click on the pencil icon > 3 dots > Manage resources
 
-2. Click the **+** button
+2. Click on "Add resource"
 
-3. Set the URL to `https://cdn.jsdelivr.net/npm/rgb-light-card` and keep "JavaScript Module" as the resource type
+3. Set the URL to `https://cdn.jsdelivr.net/npm/rgb-light-card` and "JavaScript Module" as the resource type
 
 4. Click "Create"
 
@@ -32,9 +32,9 @@ However, you can enforce a [specific version](https://github.com/bokub/rgb-light
 
 ## Configuration
 
-The `rgb-light-card` is meant to be included in the [Lovelace Entities Card](https://www.home-assistant.io/lovelace/entities/)
+The `rgb-light-card` is meant to be included in the [Entities card](https://www.home-assistant.io/dashboards/entities/)
 
-You can start with a sample configuration by choosing "**Custom: RGB Light Card**" in the Lovelace card picker
+You can start with a sample configuration by choosing "**Custom: RGB Light Card**" in the card picker
 
 Example configuration:
 
@@ -88,17 +88,17 @@ entities:
 | `icon_color`                                               | string | **Optional** |         | Override icon color. Check out [examples](#icon-color) below                                                                                                                                                                                       |
 | `label`                                                    | string | **Optional** |         | Optional color label. Check out [examples](#labels) below                                                                                                                                                                                          |
 | `entity_id`                                                | string | **Optional** |         | Override the `entity` option for this specific color                                                                                                                                                                                               |
-| `type`                                                     | string | **Optional** | `light` | Can be set to `light` (default), or `call-service` to change the click action. Read the [explanation](#calling-services) just below                                                                                                                |
-| `service`                                                  | string | **Optional** |         | Used with the `call-service` type to specify the service to call for the click action                                                                                                                                                              |
-| `service_data`                                             | array  | **Optional** |         | Used with the `call-service` type to specify the data to be passed to the service                                                                                                                                                                  |
+| `type`                                                     | string | **Optional** | `light` | Can be set to `light` (default), or `action` to change the click action. Read the [explanation](#calling-services) just below                                                                                                                      |
+| `service`                                                  | string | **Optional** |         | Used with the `action` type to specify the service to call for the click action                                                                                                                                                                    |
+| `data`                                                     | array  | **Optional** |         | Used with the `action` type to specify the data to be passed to the service                                                                                                                                                                        |
 
-## Calling Services
+## Performing Actions
 
-By default, clicking an icon calls the `light.turn_on` service with the options you defined.
+By default, clicking an icon performs the `light.turn_on` actions with the options you defined.
 
-If you want more flexibility, you can use `type: call-service` to call a different service, with optional data in a `service_data` object.
+If you want more flexibility, you can use `type: action` to perform a different action, with optional data in a `data` object.
 
-You can find more information about service calls in the [Home Assistant documentation](https://www.home-assistant.io/docs/scripts/service-calls/)
+You can find more information about actions in the [Home Assistant documentation](https://www.home-assistant.io/docs/scripts/perform-actions/)
 
 Example configuration:
 
@@ -108,24 +108,23 @@ entities:
     - type: 'custom:rgb-light-card'
       colors:
           # First icon calls a script
-          - type: call-service
-            service: script.turn_on
-            service_data:
+          - type: action
+            action: script.turn_on
+            data:
                 entity_id: script.night_mode
             icon_color: '#90b2ec'
           # Second icon calls a scene
-          - type: call-service
-            service: scene.turn_on
-            service_data:
+          - type: action
+            action: scene.turn_on
+            data:
                 entity_id: scene.romantic
             icon_color: '#f1a5cb'
-          # Third icon sends an Alexa TTS notification
-          - type: call-service
-            service: notify.alexa_media_office
-            service_data:
-                data:
-                    type: tts
-                message: Hello world!
+          # Third icon sends a mobile notification
+          - type: action
+            action: notify.mobile_app_pixel_8
+            data:
+                title: Hey
+                message: I'm your mobile phone
             icon_color: '#77e28a'
 ```
 

@@ -90,7 +90,7 @@ class RGBLightCard extends HTMLElement {
             const color = config.colors[c];
             const type = color.type || 'light';
             // Check if type is valid
-            if (['light', 'call-service'].indexOf(type) === -1) {
+            if (['light', 'action'].indexOf(type) === -1) {
                 throw new Error(`Invalid type '${type}' for colors[${c}]`);
             }
             // If root entity is not defined, ensure light entity_id is defined
@@ -101,13 +101,13 @@ class RGBLightCard extends HTMLElement {
             if (type === 'light' && color.entity_id && color.entity_id.indexOf('light.') !== 0) {
                 throw new Error(`colors[${c}].entity_id '${color.entity_id}' must be a valid light entity`);
             }
-            // If call-service, ensure service is defined
-            if (type === 'call-service' && !color.service) {
-                throw new Error(`You need to define colors[${c}].service`);
+            // If action type, ensure action is defined
+            if (type === 'action' && !color.action) {
+                throw new Error(`You need to define colors[${c}].action`);
             }
-            // Check that service is valid
-            if (type === 'call-service' && color.service.split('.').length !== 2) {
-                throw new Error(`colors[${c}].service '${color.service}' must be a valid service`);
+            // Check that action is valid
+            if (type === 'action' && color.action.split('.').length !== 2) {
+                throw new Error(`colors[${c}].action '${color.action}' must be a valid action`);
             }
         }
 
@@ -119,19 +119,19 @@ class RGBLightCard extends HTMLElement {
     }
 
     applyColor(color) {
-        if (color.type === 'call-service') {
-            const [domain, service] = color.service.split('.');
-            this._hass.callService(domain, service, color.service_data || {});
+        if (color.type === 'action') {
+            const [domain, action] = color.action.split('.');
+            this._hass.callService(domain, action, color.data || {});
             return;
         }
-        const serviceData = {
+        const actionData = {
             entity_id: this.config.entity,
             ...color,
             icon_color: undefined,
             type: undefined,
             label: undefined,
         };
-        this._hass.callService('light', 'turn_on', serviceData);
+        this._hass.callService('light', 'turn_on', actionData);
     }
 
     setVisibility() {
@@ -157,17 +157,19 @@ class RGBLightCard extends HTMLElement {
             return config;
         }
         config.colors = config.colors.map((color, c) => {
-            if (color && ['script', 'scene'].indexOf(color.type) > -1) {
-                if (!color.entity_id) {
-                    throw new Error(`You need to define colors[${c}].entity_id`);
+            // Migrate to 1.12.0 format
+            if (color) {
+                if (color.type === 'call-service') {
+                    color.type = 'action';
                 }
-                if (color.entity_id && color.entity_id.indexOf(color.type + '.') !== 0) {
-                    throw new Error(`colors[${c}].entity_id '${color.entity_id}' must be a ${color.type}`);
+                if (color.service) {
+                    color.action = color.service;
+                    delete color.service;
                 }
-                color.service = `${color.type}.turn_on`;
-                color.service_data = { entity_id: color.entity_id };
-                color.type = 'call-service';
-                color.entity_id = undefined;
+                if (color.service_data) {
+                    color.data = color.service_data;
+                    delete color.service_data;
+                }
             }
             return color;
         });
@@ -293,7 +295,7 @@ window.customCards.push({
 });
 
 console.info(
-    '\n %c RGB Light Card %c v1.11.0 %c \n',
+    '\n %c RGB Light Card %c v1.12.0 %c \n',
     'background-color: #555;color: #fff;padding: 3px 2px 3px 3px;border-radius: 3px 0 0 3px;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: #bc81e0;background-image: linear-gradient(90deg, #b65cff, #11cbfa);color: #fff;padding: 3px 3px 3px 2px;border-radius: 0 3px 3px 0;font-family: DejaVu Sans,Verdana,Geneva,sans-serif;text-shadow: 0 1px 0 rgba(1, 1, 1, 0.3)',
     'background-color: transparent'

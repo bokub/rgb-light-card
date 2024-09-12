@@ -24,8 +24,10 @@ colors:
   service: switch.toggle
   service_data:
     entity_id: switch.garden_lights
-- type: script
-  entity_id: script.night_mode
+- type: action
+  action: switch.toggle
+  data:
+    entity_id: switch.chromecast
 - hs_color: [60, 30]
   icon_color: "#fff000"
 - color_temp: 100
