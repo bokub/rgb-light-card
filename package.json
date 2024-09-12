@@ -9,20 +9,19 @@
         "ngrok": "ngrok http http://localhost:3000",
         "prettier": "prettier --write --ignore-path .gitignore .",
         "check-prettier": "prettier --check --ignore-path .gitignore . ",
-        "test": "nyc ava",
-        "coverage": "nyc report --reporter=text-lcov > coverage.lcov",
-        "prepare": "husky install"
+        "test": "vitest",
+        "coverage": "vitest run --coverage",
+        "prepare": "husky"
     },
     "devDependencies": {
         "@bokub/prettier-config": "^1.1.0",
-        "ava": "^3.12.1",
+        "@vitest/coverage-v8": "^2.0.5",
         "browser-env": "^3.3.0",
-        "codecov": "^3.6.5",
-        "husky": "^7.0.0",
-        "nyc": "^15.0.0",
+        "husky": "^9.1.6",
+        "lint-staged": "^15.2.10",
         "prettier": "^2.2.1",
-        "pretty-quick": "^3.1.1",
         "serve": "^14.2.3",
+        "vitest": "^2.0.5",
         "yamljs": "^0.3.0"
     },
     "files": [
@@ -42,10 +41,7 @@
     "main": "card.js",
     "prettier": "@bokub/prettier-config",
     "repository": "bokub/rgb-light-card",
-    "ava": {
-        "require": [
-            "./test/_setup.js",
-            "./card.js"
-        ]
+    "lint-staged": {
+        "*": "prettier --write --ignore-unknown"
     }
 }

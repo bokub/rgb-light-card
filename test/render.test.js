@@ -1,5 +1,6 @@
-const test = require('ava');
-const YAML = require('yamljs');
+import { describe, test, expect } from 'vitest';
+import '../card';
+import YAML from 'yamljs';
 
 const circleMarkup = (background, innerText) =>
     `<div class="color"><div class="color-circle" style="background: ${background};"></div><div class="color-label">${
@@ -7,6 +8,7 @@ const circleMarkup = (background, innerText) =>
     }</div></div>`;
 
 const styleMarkup = (str) => `<style>${str.replace(/\s\s+/g, ' ')}</style>`;
+
 const testCases = [
     {
         name: 'Test icon colors',
@@ -80,23 +82,25 @@ label_size: 10
 `,
         result:
             styleMarkup(`
-            .wrapper { justify-content: space-around; margin-bottom: -3.5px; }
-            .wrapper.hidden { display: none; }
-            .color-circle { width: 28px; height: 28px; margin: 3.5px 7px 7px; }
-            .color-label { font-size: 10px; margin-bottom: 3.5px; }
-        `) +
+        .wrapper { justify-content: space-around; margin-bottom: -3.5px; }
+        .wrapper.hidden { display: none; }
+        .color-circle { width: 28px; height: 28px; margin: 3.5px 7px 7px; }
+        .color-label { font-size: 10px; margin-bottom: 3.5px; }
+      `) +
             circleMarkup('rgb(234, 136, 140)') +
             circleMarkup('rgb(251, 180, 140)') +
             circleMarkup('rgb(135, 198, 237)', 'Blue'),
     },
 ];
 
-for (const testCase of testCases) {
-    test(testCase.name || 'Unnamed test', (t) => {
-        const card = new RGBLightCard();
-        if (testCase.config) {
-            card.setConfig(YAML.parse(testCase.config));
-        }
-        t.is(card.content.innerHTML, testCase.result);
-    });
-}
+describe('RGB Light Card renderings', () => {
+    for (const testCase of testCases) {
+        test(testCase.name || 'Unnamed test', () => {
+            const card = new RGBLightCard();
+            if (testCase.config) {
+                card.setConfig(YAML.parse(testCase.config));
+            }
+            expect(card.content.innerHTML).toBe(testCase.result);
+        });
+    }
+});

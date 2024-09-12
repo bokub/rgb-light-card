@@ -1,7 +1,2 @@
 node_modules
-package-lock.json
-yarn.lock
-coverage.lcov
-.nyc_output
-
-.idea
+coverage
