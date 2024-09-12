@@ -119,6 +119,7 @@ class RGBLightCard extends HTMLElement {
     }
 
     applyColor(color) {
+        this.fireHapticFeedback();
         if (color.type === 'action') {
             const [domain, action] = color.action.split('.');
             this._hass.callService(domain, action, color.data || {});
@@ -147,6 +148,16 @@ class RGBLightCard extends HTMLElement {
             const hidden = this.config['hide_when_off'] && isOff;
             this.content.className = hidden ? 'wrapper hidden' : 'wrapper';
         }
+    }
+
+    fireHapticFeedback() {
+        const event = new Event('haptic', {
+            bubbles: true,
+            cancelable: false,
+            composed: true,
+        });
+        event.detail = 'light';
+        window.dispatchEvent(event);
     }
 
     // Transform a deprecated config into a more recent one

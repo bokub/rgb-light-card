@@ -62,6 +62,11 @@ test('Clicking the icons call the right function', (t) => {
         },
     };
 
+    let vibrations = 0;
+    window.dispatchEvent = (event) => {
+        if (event.type === 'haptic') vibrations++;
+    };
+
     card.setConfig({
         entity: 'light.example',
         colors: [
@@ -79,6 +84,7 @@ test('Clicking the icons call the right function', (t) => {
         ],
     });
     clickOnCircle(1);
+    t.is(vibrations, 1);
     t.deepEqual(called, {
         domain: 'light',
         service: 'turn_on',
@@ -86,9 +92,11 @@ test('Clicking the icons call the right function', (t) => {
     });
 
     clickOnCircle(2);
+    t.is(vibrations, 2);
     t.deepEqual(called, { domain: 'homeassistant', service: 'restart', payload: { force: true } });
 
     clickOnCircle(3);
+    t.is(vibrations, 3);
     t.deepEqual(called, {
         domain: 'hue',
         service: 'hue_activate_scene',
