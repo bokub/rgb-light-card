@@ -9,8 +9,8 @@
 
 > A Home Assistant card for RGB lights
 
-<img alt="Light theme" src="https://github.com/user-attachments/assets/76bb3893-9f89-49a6-8a54-553011c1ea9f" width="410">
-<img alt="Dark theme" src="https://github.com/user-attachments/assets/27058738-81ae-4586-bc7c-77b04ffad6b5" width="410">
+<img alt="Light theme" src="https://github.com/user-attachments/assets/1f296f56-7fc9-4707-bd45-008e6f9aa5de" width="400">
+<img alt="Dark theme" src="https://github.com/user-attachments/assets/40cf47bb-854d-41fb-879a-b5c8a400bbec" width="400">
 
 ## Installation
 
