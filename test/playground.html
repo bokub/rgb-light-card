@@ -8,49 +8,92 @@
         />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>RGB Light Card playground</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
         <style>
-            body {
-                background: #20262e;
-                padding: 30px 0;
-                font-family: sans-serif;
-            }
-            #app {
-                background: #fff;
-                border-radius: 4px;
-                padding: 40px 0;
-                width: 960px;
-                margin: auto;
-            }
             [v-cloak] {
                 display: none;
             }
         </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
     </head>
-    <body>
-        <div id="app">
-            <div class="container">
-                <div class="row">
-                    <div class="col text-center mb-3">
-                        <div class="h2 text-monospace">RGB Light Card playground</div>
-                    </div>
-                </div>
-                <div class="row" v-cloak>
-                    <div class="col-6">
-                        <textarea class="form-control text-monospace w-100" v-model="rawConfig" rows="15"></textarea>
-                    </div>
-                    <div class="col-6">
-                        <div v-if="error" class="alert alert-danger">
-                            <h6 class="alert-heading">Configuration error</h6>
+    <body class="font-sans py-7 flex flex-col min-h-screen bg-[#24273a]">
+        <div id="app" class="m-auto bg-white rounded p-8 grow flex flex-col gap-8 w-[960px]">
+            <div class="w-full text-center">
+                <div class="text-3xl font-semibold">RGB Light Card playground</div>
+            </div>
+            <div class="flex grow gap-4" v-cloak>
+                <textarea
+                    v-model="rawConfig"
+                    id="message"
+                    class="font-mono p-2.5 w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 outline-none"
+                ></textarea>
+                <div class="w-1/2 p-4 rounded-lg bg-[#24273a]">
+                    <div class="w-full grid grid-cols-4 gap-4">
+                        <div v-if="error" class="text-sm bg-red-100 text-red-700 p-2 col-span-4 rounded-lg">
+                            <div class="font-bold mb-1">Configuration error</div>
                             <code>{{ error }}</code>
                         </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <rgb-light-card id="card"></rgb-light-card>
+
+                        <!-- Entities -->
+                        <div class="p-4 rounded-xl text-white col-span-4 bg-[#363a4f] font-['Roboto']">
+                            <div class="mb-2 flex h-10 items-center">
+                                <div class="w-10">
+                                    <div class="w-6 h-6 m-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <title>lightbulb</title>
+                                            <path
+                                                fill="#a5adcb"
+                                                d="M12,2A7,7 0 0,0 5,9C5,11.38 6.19,13.47 8,14.74V17A1,1 0 0,0 9,18H15A1,1 0 0,0 16,17V14.74C17.81,13.47 19,11.38 19,9A7,7 0 0,0 12,2M9,21A1,1 0 0,0 10,22H14A1,1 0 0,0 15,21V20H9V21Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="grow ml-4 mr-2 text-sm">Light in Entities</div>
+                                <div class="w-11">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <title>toggle-switch</title>
+                                        <path
+                                            fill="#fff"
+                                            d="M17,7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7M17,15A3,3 0 0,1 14,12A3,3 0 0,1 17,9A3,3 0 0,1 20,12A3,3 0 0,1 17,15Z"
+                                        />
+                                    </svg>
+                                </div>
+                            </div>
+                            <rgb-light-card id="card"></rgb-light-card>
+                        </div>
+
+                        <!-- Tile -->
+                        <div
+                            class="rounded-xl col-span-3 flex flex-col bg-[#363a4f] text-[#cad3f5] h-[120px] font-['Roboto']"
+                        >
+                            <div class="flex grow items-center p-[10px]">
+                                <div class="rounded-full bg-[#475478] h-[36px] w-[36px] mr-[10px]">
+                                    <div class="h-[22px] w-[22px] m-[7px]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <title>lightbulb</title>
+                                            <path
+                                                fill="#a5adcb"
+                                                d="M12,2A7,7 0 0,0 5,9C5,11.38 6.19,13.47 8,14.74V17A1,1 0 0,0 9,18H15A1,1 0 0,0 16,17V14.74C17.81,13.47 19,11.38 19,9A7,7 0 0,0 12,2M9,21A1,1 0 0,0 10,22H14A1,1 0 0,0 15,21V20H9V21Z"
+                                            />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium">Light in Tile</div>
+                                    <div class="text-xs">55%</div>
+                                </div>
+                            </div>
+                            <div class="p-3 pt-0">
+                                <rgb-light-card-feature id="tile"></rgb-light-card-feature>
                             </div>
                         </div>
-                        <div v-if="service" class="alert alert-info">
-                            <h6 class="alert-heading">Service called</h6>
+                        <div v-if="service" class="text-sm bg-blue-100 text-blue-700 p-2 col-span-4 rounded-lg">
+                            <h6 class="font-bold mb-1">Service called</h6>
                             <pre>{{ service }}</pre>
                         </div>
                     </div>
@@ -85,6 +128,7 @@ colors:
         - 30
     icon_color: '#8ce7b9'`,
                 card: null,
+                tile: null,
                 error: '',
                 service: null,
             }),
@@ -100,8 +144,12 @@ colors:
             },
             mounted() {
                 this.card = document.getElementById('card');
+                this.tile = document.getElementById('tile');
                 this.setConfig();
                 this.card.hass = {
+                    callService: this.callService,
+                };
+                this.tile.hass = {
                     callService: this.callService,
                 };
             },
@@ -118,6 +166,7 @@ colors:
                 setConfig() {
                     try {
                         this.card.setConfig(this.config);
+                        this.tile.setConfig(this.config);
                         localStorage.setItem('config', this.rawConfig);
                         this.error = null;
                     } catch (e) {

@@ -13,6 +13,7 @@ const testCases = [
     {
         name: 'Test icon colors',
         config: `---
+type: custom:rgb-light-card
 entity: light.example_light
 colors:
 - rgb_color: [255, 127, 255]
@@ -45,7 +46,7 @@ colors:
 `,
         result:
             styleMarkup(`
-            .wrapper { justify-content: flex-start; margin-bottom: -4px; }
+            .wrapper { justify-content: flex-start; margin-bottom: -4px;  margin-left: 0px; margin-right: 0px; }
             .wrapper.hidden { display: none; }
             .color-circle { width: 32px; height: 32px; margin: 4px 8px 8px; }
             .color-label { font-size: 12px; margin-bottom: 4px; }
@@ -70,6 +71,7 @@ colors:
     {
         name: 'Test justify and size options',
         config: `---
+type: custom:rgb-light-card
 entity: light.example_light
 colors:
 - rgb_color: [234, 136, 140]
@@ -82,7 +84,7 @@ label_size: 10
 `,
         result:
             styleMarkup(`
-        .wrapper { justify-content: space-around; margin-bottom: -3.5px; }
+        .wrapper { justify-content: space-around; margin-bottom: -3.5px;  margin-left: 0px; margin-right: 0px;  }
         .wrapper.hidden { display: none; }
         .color-circle { width: 28px; height: 28px; margin: 3.5px 7px 7px; }
         .color-label { font-size: 10px; margin-bottom: 3.5px; }
@@ -91,15 +93,36 @@ label_size: 10
             circleMarkup('rgb(251, 180, 140)') +
             circleMarkup('rgb(135, 198, 237)', 'Blue'),
     },
+    {
+        name: 'Test tile feature version',
+        config: `---
+type: custom:rgb-light-card-feature
+entity: light.example_light
+colors:
+- rgb_color: [234, 136, 140]
+- rgb_color: [251, 180, 140]
+- rgb_color: [135, 198, 237]
+`,
+        result:
+            styleMarkup(`
+            .wrapper { justify-content: flex-start; margin-bottom: -4px;  margin-left: -8px; margin-right: -8px; }
+            .wrapper.hidden { display: none; }
+            .color-circle { width: 32px; height: 32px; margin: 4px 8px 8px; }
+            .color-label { font-size: 12px; margin-bottom: 4px; }
+        `) +
+            circleMarkup('rgb(234, 136, 140)') +
+            circleMarkup('rgb(251, 180, 140)') +
+            circleMarkup('rgb(135, 198, 237)'),
+    },
 ];
 
 describe('RGB Light Card renderings', () => {
     for (const testCase of testCases) {
         test(testCase.name || 'Unnamed test', () => {
-            const card = new RGBLightCard();
-            if (testCase.config) {
-                card.setConfig(YAML.parse(testCase.config));
-            }
+            const parsedConfig = YAML.parse(testCase.config);
+            const card =
+                parsedConfig.type === 'custom:rgb-light-card-feature' ? new RGBLightCardFeature() : new RGBLightCard();
+            card.setConfig(parsedConfig);
             expect(card.content.innerHTML).toBe(testCase.result);
         });
     }

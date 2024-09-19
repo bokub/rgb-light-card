@@ -32,11 +32,17 @@ However, you can enforce a [specific version](https://github.com/bokub/rgb-light
 
 ## Configuration
 
-The `rgb-light-card` is meant to be included in the [Entities card](https://www.home-assistant.io/dashboards/entities/)
+The `rgb-light-card` is meant to be included either:
 
-You can start with a sample configuration by choosing "**Custom: RGB Light Card**" in the card picker
+-   In the [Entities card](https://www.home-assistant.io/dashboards/entities/)
+-   As a feature in a [Tile card](https://www.home-assistant.io/dashboards/tile/)
 
-Example configuration:
+To start with an example configuration, you can create a new card in your dashboard, then:
+
+-   Choose "**Custom: RGB Light Card**" in the card picker
+-   Or choose the **Tile** card, click on **Add feature** in the **features** section, and select **RGB Light Card (Tile feature)**
+
+Example configuration within an **Entities** card:
 
 ```yaml
 type: entities
@@ -47,6 +53,30 @@ entities:
 
     # Card configuration starts here
     - type: 'custom:rgb-light-card'
+      entity: light.example_light
+      colors:
+          # Any option of the light.turn_on action can be used in each color
+          - rgb_color:
+                - 255
+                - 127
+                - 255
+            brightness: 220
+            transition: 1
+          - hs_color:
+                - 60
+                - 30
+            icon_color: '#fff8b0' # Override icon color
+```
+
+Example configuration as a **Tile** feature:
+
+```yaml
+# Tile card configuration
+type: tile
+entity: light.example_light
+features:
+    # The "feature" configuration starts here
+    - type: custom:rgb-light-card-feature
       entity: light.example_light
       colors:
           # Any option of the light.turn_on action can be used in each color
@@ -158,7 +188,7 @@ The 5 examples above will render like this:
 As explained above, the `icon_color` option accepts any valid CSS value
 
 If you want icons in your colors, you can use the [icon tool](https://bokub.github.io/rgb-light-card/test/icon.html)
-to convert [material design icons](https://materialdesignicons.com/) into CSS
+to convert [material design icons](https://pictogrammers.com/library/mdi/) into CSS
 
 ![Light icons examples](https://github.com/bokub/rgb-light-card/raw/images/icons_light.png)
 ![Dark icons examples](https://github.com/bokub/rgb-light-card/raw/images/icons_dark.png)

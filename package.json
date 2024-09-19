@@ -1,15 +1,16 @@
 {
     "name": "rgb-light-card",
     "description": "A Home Assistant card for RGB lights",
-    "version": "1.12.0",
+    "version": "1.13.0",
     "author": "Boris K",
     "bugs": "https://github.com/bokub/rgb-light-card/issues",
     "scripts": {
-        "dev": "serve -C .",
+        "dev": "serve --cors .",
+        "serve": "serve --cors .",
         "ngrok": "ngrok http http://localhost:3000",
         "prettier": "prettier --write --ignore-path .gitignore .",
         "check-prettier": "prettier --check --ignore-path .gitignore . ",
-        "test": "vitest",
+        "test": "vitest run",
         "coverage": "vitest run --coverage",
         "prepare": "husky"
     },

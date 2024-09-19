@@ -7,6 +7,9 @@ global.customElements = {
         if (name === 'rgb-light-card') {
             global.RGBLightCard = constructor;
         }
+        if (name === 'rgb-light-card-feature') {
+            global.RGBLightCardFeature = constructor;
+        }
     },
 };
 

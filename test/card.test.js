@@ -168,4 +168,36 @@ describe('RGB Light Card', () => {
         expect(conf.entities[1].type).toBe('custom:rgb-light-card');
         expect(conf.entities[1].colors.length).toBe(4);
     });
+
+    test('Card exists as both as a card and as a Tile feature', () => {
+        const card = new RGBLightCard();
+        expect(card.isInTile).toBe(false);
+        const tileFeature = new RGBLightCardFeature();
+        expect(tileFeature.isInTile).toBe(true);
+    });
+
+    test('Tile feature has its own sub config', () => {
+        let conf = RGBLightCardFeature.getStubConfig({ states: {} }, { entity_id: 'light.my_light' });
+        expect(conf.entity).toBe('light.my_light');
+        expect(conf.type).toBe('custom:rgb-light-card-feature');
+        expect(conf.colors.length).toBe(4);
+
+        conf = RGBLightCardFeature.getStubConfig({ states: {} }, { entity_id: 'switch.my_light' });
+        expect(conf.entity).toBe('light.example_light');
+
+        conf = RGBLightCardFeature.getStubConfig(
+            {
+                states: {
+                    'plop.light_1': { attributes: { supported_color_modes: ['hs'] }, entity_id: 'plop.light_1' },
+                    'light.light_2': { attributes: { supported_color_modes: ['onoff'] }, entity_id: 'light.light_2' },
+                    'light.light_3': {
+                        attributes: { supported_color_modes: ['onoff', 'rgb'] },
+                        entity_id: 'light.light_3',
+                    },
+                },
+            },
+            { entity_id: 'switch.my_light' }
+        );
+        expect(conf.entity).toBe('light.light_3');
+    });
 });
