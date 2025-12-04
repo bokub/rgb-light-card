@@ -203,8 +203,8 @@ class RGBLightCard extends HTMLElement {
         if (color['color_name']) {
             return color['color_name'];
         }
-        if (color['color_temp'] || color['kelvin']) {
-            let mireds = parseInt(color['color_temp'], 10) || Math.round(1000000 / parseInt(color['kelvin'], 10));
+        if (color['color_temp_kelvin']) {
+            let mireds = Math.round(1000000 / parseInt(color['color_temp_kelvin'], 10));
             mireds = Math.max(154, Math.min(500, mireds));
             const center = (500 + 154) / 2;
             const cr = [[166, 209, 255], [255, 255, 255], [255, 160, 0]].slice(mireds < center ? 0 : 1); // prettier-ignore
