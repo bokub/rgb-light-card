@@ -33,10 +33,10 @@ colors:
     entity_id: switch.chromecast
 - hs_color: [60, 30]
   icon_color: "#fff000"
-- color_temp: 100
-- color_temp: 540
-- color_temp: 360
-- kelvin: 4000
+- color_temp_kelvin: 1000
+- color_temp_kelvin: 2500
+- color_temp_kelvin: 4000
+- color_temp_kelvin: 5500
 - xy_color: [0.217, 0.07]
 - xy_color:
   - 0.368
@@ -59,10 +59,10 @@ colors:
             circleMarkup('rgb(127, 132, 142)') +
             circleMarkup('rgb(127, 132, 142)') +
             circleMarkup('rgb(255, 240, 0)') +
-            circleMarkup('rgb(166, 209, 255)') +
             circleMarkup('rgb(255, 160, 0)') +
-            circleMarkup('rgb(255, 237, 206)') +
+            circleMarkup('rgb(255, 215, 147)') +
             circleMarkup('rgb(215, 235, 255)') +
+            circleMarkup('rgb(180, 216, 255)') +
             circleMarkup('rgb(130, 0, 255)') +
             circleMarkup('rgb(254, 129, 255)') +
             circleMarkup('rgba(253, 216, 53, 0.2)') +
