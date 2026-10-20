@@ -120,7 +120,7 @@ features:
 | `entity_id`                                                | string | **Optional** |         | Override the `entity` option for this specific color                                                                                                                                                                                               |
 | `type`                                                     | string | **Optional** | `light` | Can be set to `light` (default), or `action` to change the click action. Read the [explanation](#performing-actions) just below                                                                                                                    |
 | `action`                                                   | string | **Optional** |         | Used with the `action` type to specify the action to perform when clicked                                                                                                                                                                          |
-| `data`                                                     | array  | **Optional** |         | Used with the `action` type to specify the data to be passed to the action                                                                                                                                                                         |
+| `data`                                                     | object | **Optional** |         | Used with the `action` type to specify the data to be passed to the action                                                                                                                                                                         |
 
 ## Performing Actions
 
