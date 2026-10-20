@@ -280,7 +280,9 @@ class RGBLightCard extends HTMLElement {
                     entity.entity_id.startsWith('light.') &&
                     entity.attributes &&
                     entity.attributes.supported_color_modes &&
-                    entity.attributes.supported_color_modes.find((mode) => ['hs', 'rgb', 'xy'].indexOf(mode) !== -1)
+                    entity.attributes.supported_color_modes.find(
+                        (mode) => ['hs', 'rgb', 'rgbw', 'rgbww', 'xy'].indexOf(mode) !== -1
+                    )
             )
             .map((entity) => entity.entity_id);
     }

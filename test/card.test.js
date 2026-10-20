@@ -169,6 +169,27 @@ describe('RGB Light Card', () => {
         expect(conf.entities[1].colors.length).toBe(4);
     });
 
+    test.each(['rgbw', 'rgbww'])('Card and Tile stubs support %s lights', (mode) => {
+        const entity = `light.${mode}_light`;
+        const hass = {
+            states: {
+                [entity]: { attributes: { supported_color_modes: [mode] }, entity_id: entity },
+            },
+        };
+        const cardConfig = RGBLightCard.getStubConfig(hass);
+        const tileConfig = RGBLightCardFeature.getStubConfig(hass, { entity_id: 'switch.unrelated' });
+
+        expect(cardConfig.entities[0].entity).toBe(entity);
+        expect(cardConfig.entities[1]).toMatchObject({
+            type: 'custom:rgb-light-card',
+            entity,
+        });
+        expect(tileConfig).toMatchObject({
+            type: 'custom:rgb-light-card-feature',
+            entity,
+        });
+    });
+
     test('Card exists as both as a card and as a Tile feature', () => {
         const card = new RGBLightCard();
         expect(card.isInTile).toBe(false);
